@@ -9,11 +9,11 @@ const Ship = (length) => {
     }
     const getArray = () => array
     const isHit = (coordinate) => {
-        let shipPart = array.find(element => (element.xy.toString() == coordinate))
-        return shipPart.hit = true;
+        let shipPart = array.findIndex(element => (element.xy.toString() == coordinate))
+        return array[shipPart].hit = true;
     }
     const isSunk = () => {
-        const isTrue = (element) => element.hit === true
+        const isTrue = (element) => element.hit == true
         if (array.every(isTrue)) {
         return shipSunk = true;
         }

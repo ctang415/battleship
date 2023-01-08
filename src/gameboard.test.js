@@ -5,9 +5,13 @@ const gameBoard = require('./gameboard')
 const Ship = require('./ship')
 
 test('place ship on board', () => {
+    document.body.innerHTML =
+    '<div class = "div">' +
+    '</div class = "div">';
+    const div = document.querySelector('.div')
     const battleship = Ship(2)
     const gameboard =  gameBoard()
-    gameboard.placeShip(battleship, [[0,1], [2,2]])
+    gameboard.placeShip(battleship, div, [[0,1], [2,2]])
     expect(gameboard.showBoard(battleship, [[0,1], [2,2]])).toBe("set")
 })
 
@@ -20,8 +24,6 @@ test('hit misses a ship', () => {
     div.occupy = 'empty'
     div.hit = false
     const gameboard = gameBoard()
-    const battleship = Ship(1)
-    gameboard.placeShip(battleship, [[0,1]])
     expect(gameboard.receiveAttack(div, [[0,1]])).toBe("miss")
 })
 
@@ -31,10 +33,48 @@ test('hits a ship', () => {
     '</div class = "div">';
     const gameboard = gameBoard()
     const battleship = Ship(1)
-    gameboard.placeShip(battleship, [[0,1]])
     const div = document.querySelector('.div')
+    gameboard.placeShip(battleship, div, [[0,1]])
     div.id = [0,1]
     div.occupy = battleship
-    div.hit = false
     expect(gameboard.receiveAttack(div, [[0,1]])).toBe("hit")
+})
+
+test('all ships not sunk', () => {
+    document.body.innerHTML =
+    '<div class = "div">' +
+    '</div class = "div">' +
+    '<div class = "divtwo">' +
+    '</div class = "divtwo">';
+    const div = document.querySelector('.div')
+    const divtwo = document.querySelector('.divtwo')
+    div.occupy = 'empty'
+    divtwo.occupy = 'empty'
+    const gameboard = gameBoard()
+    const battleship = Ship(1)
+    const cruiser = Ship(1)
+    gameboard.placeShip(battleship, div, [[0,1]])
+    gameboard.receiveAttack(div, [0,1])
+    gameboard.placeShip(cruiser, divtwo, [[0,4]])
+    expect(gameboard.reportShips()).toBe("not all ships sunk")
+})
+
+test('all ships sunk', () => {
+    document.body.innerHTML =
+    '<div class = "div">' +
+    '</div class = "div">' +
+    '<div class = "divtwo">' +
+    '</div class = "divtwo">';
+    const div = document.querySelector('.div')
+    const divtwo = document.querySelector('.divtwo')
+    div.occupy = 'empty'
+    divtwo.occupy = 'empty'
+    const gameboard = gameBoard()
+    const battleship = Ship(1)
+    const cruiser = Ship(1)
+    gameboard.placeShip(battleship, div, [[0,1]])
+    gameboard.placeShip(cruiser, divtwo, [[0,4]])
+    gameboard.receiveAttack(div, [0,1])
+    gameboard.receiveAttack(divtwo, [0,4])
+    expect(gameboard.reportShips()).toBe("all ships sunk")
 })
