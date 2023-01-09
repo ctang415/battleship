@@ -1,6 +1,6 @@
 const Ship = require('./ship')
 
-const gameBoard = () => {
+const Gameboard = () => {
     const missedAttacks = []
     const listOfShips = []
     const createBoard = (row, col) => {
@@ -38,11 +38,11 @@ const gameBoard = () => {
             missedAttacks.push(coordinate)
             return "miss"
         } else if (div.occupy !== 'empty' && div.hit == false) {
-            div.hit = 1
+            div.hit = true
             let ship = div.occupy
             ship.isHit(coordinate)
              return "hit"
-        } else if (div.occupy !== 'empty' && div.hit == true) {
+        } else {
             return "already hit"
         }
     }
@@ -57,4 +57,4 @@ const gameBoard = () => {
     return { placeShip, showBoard, receiveAttack, reportShips }
 }
 
-module.exports = gameBoard
+module.exports = Gameboard
