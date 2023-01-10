@@ -1,0 +1,16 @@
+.container {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(10, 3em);
+    grid-template-rows: repeat(10, 3em);
+    padding: 2.5em;
+}
+
+.div {
+    display: flex;
+    border: solid black;
+    justify-content: center;
+    cursor: pointer;
+    height: 3em;
+    width: 3em;
+}

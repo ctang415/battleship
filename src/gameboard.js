@@ -3,17 +3,6 @@ const Ship = require('./ship')
 const Gameboard = () => {
     const missedAttacks = []
     const listOfShips = []
-    const createBoard = (row, col) => {
-        const container = document.querySelector('.container')
-        for (let i = 0; i < row; i++) {
-            for (let j = 0; j < col; j++) {
-                const div = document.createElement('div')
-                div.setAttribute('data-id', [i,j])
-                div.setAttribute('occupied', null)
-            }
-            container.appendChild(div)
-        }
-    }
     const showBoard = (ship, coordinates) => {
         for (const coordinate of coordinates) {
             for (let i = 0; i < coordinates.length; i++) { 
