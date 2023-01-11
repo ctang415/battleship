@@ -10,6 +10,10 @@ const gamePlay = (() => {
     const computerPlayer = Player('AI')
     const playerBoard = Createboard()
     const enemyBoard = Createboard()
-    playerBoard.createBoard(10, 10)
-    enemyBoard.createBoard(10, 10)
+    playerBoard.nameBoard('Carrie')
+    enemyBoard.nameBoard('Computer')
+    playerBoard.labelGrid()
+    enemyBoard.labelGrid()
+    playerBoard.createGrid(10, 10)
+    enemyBoard.createGrid(10, 10)
 })();
