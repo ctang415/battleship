@@ -1,8 +1,7 @@
-const Ship = require('./ship')
-
 const Gameboard = () => {
     const missedAttacks = []
     const listOfShips = []
+    const reportLength = () => listOfShips.length
     const showBoard = (ship, coordinates) => {
         for (const coordinate of coordinates) {
             for (let i = 0; i < coordinates.length; i++) { 
@@ -12,16 +11,21 @@ const Gameboard = () => {
     }
 }
     }
-    const placeShip = (ship, div, coordinates) => {
-        listOfShips.push(ship)
-        for (const coordinate of coordinates) {
-            div.occupy = ship
-            div.hit = false
-            for (let i = 0; i < coordinates.length; i++) {
-                ship.changeCoordinate(i, coordinate)
+    const placeShip = (ship, coordinate, direction) => {
+        let xChange = coordinate[0]
+        let yChange = coordinate[1]
+        if (direction == 'horizontal') {
+            if (yChange + (ship.getLength-1) < 10) {
+                listOfShips.push(ship)
+                ship.changeCoordinate(coordinate)
+            }
+        } else {
+            if (xChange + (ship.getLength-1) < 10) {
+                listOfShips.push(ship)
+                ship.changeCoordinate(coordinate)
+            }
         }
     }
-}
     const receiveAttack = (div, coordinate) => {
         if (div.occupy == 'empty' && div.hit == false) {
             missedAttacks.push(coordinate)
@@ -43,7 +47,7 @@ const Gameboard = () => {
         return "not all ships sunk"
         }
     }
-    return { placeShip, showBoard, receiveAttack, reportShips }
+    return { placeShip, showBoard, receiveAttack, reportShips, reportLength }
 }
 
 module.exports = Gameboard

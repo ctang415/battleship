@@ -1,11 +1,33 @@
 const Ship = (length) => {
+    let direction = 'horizontal'
     let shipSunk = false;
     const array = [];
     for (let i = 0; i < length; i++) {
         array.push({xy: null, hit:false})
     }
-    const changeCoordinate = (index, coordinate) => {
-        array[index].xy = coordinate
+    const changeCoordinate = (coordinate) => {
+        let yChange = coordinate[1]
+        let xChange = coordinate[0]
+        if (direction == 'horizontal') {
+                for (let i = 0; i < length; i++) {
+                    array[i].xy = [xChange, yChange]
+                    yChange = yChange++
+                }
+            } else {
+                for (let i =0; i<length; i++) {
+                    array[i].xy = [xChange, yChange]
+                    xChange = xChange++
+                }
+            }
+        }
+    const getLength = () => length
+    const getDirection = () => direction
+    const changeDirection = () => {
+        if (direction == 'horizontal') {
+            direction = 'vertical'
+        } else {
+            direction = 'horizontal'
+        }
     }
     const getArray = () => array
     const isHit = (coordinate) => {
@@ -19,7 +41,7 @@ const Ship = (length) => {
         }
         return shipSunk;
     }
-    return { getArray, changeCoordinate, isHit, isSunk }
+    return { getArray, changeCoordinate, isHit, isSunk, changeDirection, getLength, getDirection }
 }
 
 module.exports = Ship

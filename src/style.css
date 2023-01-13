@@ -7,8 +7,9 @@
 }
 .container, .containertwo {
     display: grid;
-    grid-template-columns: repeat(10, 3em);
-    grid-template-rows: repeat(10, 3em);
+    grid-template-columns: repeat(10, 2.5em);
+    grid-template-rows: repeat(10, 2.5em);
+    padding: 1em;
 }
 
 .div {
@@ -16,8 +17,9 @@
     border: solid black;
     justify-content: center;
     cursor: pointer;
-    height: 3em;
-    width: 3em;
+    height: 2.5em;
+    width: 2.5em;
+    background-color: aquamarine;
 }
 
 .playerlabel, .computerlabel {
@@ -42,9 +44,8 @@
 }
 
 .side, .sidetwo {
-    margin-top: 3em;
+    margin-top: 2.7em;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    align-content: space-evenly;
+    justify-content: space-evenly;
 }

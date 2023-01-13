@@ -10,11 +10,11 @@ const Createboard = () => {
     const nameBoard = (name) => {
         if (!playerLabel.firstChild) {
         const playerName = document.createElement('span')
-        playerName.textContent = `${name}'s Board`
+        playerName.textContent = `${name} Board`
         playerLabel.appendChild(playerName)
         } else {
             const playerName = document.createElement('span')
-            playerName.textContent = `${name}'s Board`
+            playerName.textContent = `${name} Board`
             computerLabel.appendChild(playerName)
         }
     }
@@ -44,7 +44,7 @@ const Createboard = () => {
                 for (let i = 0; i < row; i++) {
                     for (let j = 0; j < col; j++) {
                     const div = document.createElement('div')
-                    div.id = [sortAlphabet[i],j]
+                    div.id = [i,j]
                     div.occupied = 'empty'
                     div.hit = false;
                     container.appendChild(div).className = 'div'
@@ -54,7 +54,7 @@ const Createboard = () => {
                 for (let i = 0; i < row; i++) {
                     for (let j = 0; j < col; j++) {
                         const div = document.createElement('div')
-                        div.id = [sortAlphabet[i],j]
+                        div.id = [i,j]
                         div.occupied = 'empty'
                         div.hit = false;
                         containertwo.appendChild(div).className = 'div'
