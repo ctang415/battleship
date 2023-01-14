@@ -10,12 +10,13 @@ const Ship = (length) => {
         let xChange = coordinate[0]
         if (direction == 'horizontal') {
                 for (let i = 0; i < length; i++) {
-                    array[i].xy = [xChange, yChange]
+                    array[i].xy = `[${xChange},${yChange}]`
+                    console.log(`[${xChange},${yChange}]`)
                     yChange = yChange++
                 }
             } else {
                 for (let i =0; i<length; i++) {
-                    array[i].xy = [xChange, yChange]
+                    array[i].xy = `[${xChange},${yChange}]`
                     xChange = xChange++
                 }
             }

@@ -1,12 +1,14 @@
 const Createboard = () => {
     const alphabet = 'ABCDEFGHIJ'
     const sortAlphabet = alphabet.split('')
+    let currentClick;
     const playerLabel = document.querySelector('.playerlabel')
     const computerLabel = document.querySelector('.computerlabel')
     const side = document.querySelector('.side')
     const sidetwo = document.querySelector('.sidetwo')
     const container = document.querySelector('.container')
     const containertwo = document.querySelector('.containertwo')
+    const findClick = () => currentClick
     const nameBoard = (name) => {
         if (!playerLabel.firstChild) {
         const playerName = document.createElement('span')
@@ -44,9 +46,14 @@ const Createboard = () => {
                 for (let i = 0; i < row; i++) {
                     for (let j = 0; j < col; j++) {
                     const div = document.createElement('div')
-                    div.id = [i,j]
-                    div.occupied = 'empty'
-                    div.hit = false;
+                    div.id = `[${i},${j}]`
+                    div.setAttribute('occupied', 'empty')
+                    div.setAttribute('hit', false)
+                    div.addEventListener('click', function() {
+                        currentClick = div.id
+                        console.log(div.id)
+                        
+                    })
                     container.appendChild(div).className = 'div'
                     }
                 }
@@ -54,16 +61,19 @@ const Createboard = () => {
                 for (let i = 0; i < row; i++) {
                     for (let j = 0; j < col; j++) {
                         const div = document.createElement('div')
-                        div.id = [i,j]
-                        div.occupied = 'empty'
-                        div.hit = false;
+                        div.id = `[${i},${j}]`
+                        div.setAttribute('occupied', 'empty')
+                        div.setAttribute('hit', false)
+                        div.addEventListener('click', function() {
+                            currentClick = div.id
+                            console.log(div.id)
+                        })
                         containertwo.appendChild(div).className = 'div'
                     }
                 }
             }
         }
-
-    return { createGrid, nameBoard, labelGrid }
+    return { createGrid, nameBoard, labelGrid, findClick }
 }
 
 module.exports = Createboard

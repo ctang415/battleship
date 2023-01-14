@@ -22,6 +22,16 @@
     background-color: aquamarine;
 }
 
+.divtwo {
+    display: flex;
+    border: solid black;
+    justify-content: center;
+    cursor: pointer;
+    height: 2.5em;
+    width: 2.5em;
+    background-color: grey;
+}
+
 .playerlabel, .computerlabel {
     font-size: 2em;
 }

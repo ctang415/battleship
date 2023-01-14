@@ -14,18 +14,37 @@ const Gameboard = () => {
     const placeShip = (ship, coordinate, direction) => {
         let xChange = coordinate[0]
         let yChange = coordinate[1]
+        const theDiv = document.getElementById(`[${xChange},${yChange}]`)
+        if (theDiv.getAttribute('occupied') == 'empty') {
         if (direction == 'horizontal') {
-            if (yChange + (ship.getLength-1) < 10) {
+            if (yChange + (ship.getLength()-1) < 10) {
                 listOfShips.push(ship)
                 ship.changeCoordinate(coordinate)
+                for (let i = 0; i < ship.getLength(); i++) {
+                const myDiv = document.getElementById(`[${xChange},${yChange}]`)
+                console.log(`[${xChange},${yChange}]`)
+                myDiv.setAttribute('occupied', ship)
+                myDiv.className = 'divtwo'
+                yChange++;
+                }
             }
         } else {
-            if (xChange + (ship.getLength-1) < 10) {
+            if (xChange + (ship.getLength()-1) < 10) {
+                console.log(theDiv.getAttribute('occupied'))
                 listOfShips.push(ship)
                 ship.changeCoordinate(coordinate)
+                for (let i = 0; i < ship.getLength(); i++) {
+                const myDiv = document.getElementById(`[${xChange},${yChange}]`)
+                myDiv.setAttribute('occupied', ship)
+                myDiv.className = 'divtwo'
+                xChange++;
+                }
             }
         }
+    } else {
+        console.log('no')
     }
+}
     const receiveAttack = (div, coordinate) => {
         if (div.occupy == 'empty' && div.hit == false) {
             missedAttacks.push(coordinate)

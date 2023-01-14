@@ -28,6 +28,11 @@ const gamePlay = (() => {
     enemyBoard.labelGrid()
     playerBoard.createGrid(10, 10)
     enemyBoard.createGrid(10, 10)
+    playerGameboardFunction.placeShip(myCarrier, [4,1], myCarrier.getDirection())
+    playerGameboardFunction.placeShip(myBattleship, [1,4], myBattleship.getDirection())
+    playerGameboardFunction.placeShip(myCruiser, [2,2], myCruiser.getDirection())
+    playerGameboardFunction.placeShip(mySubmarine, [5,8], mySubmarine.getDirection())
+    playerGameboardFunction.placeShip(myDestroyer, [7,3], myDestroyer.getDirection())
     const endGame = () => {
         if (enemyGameboardFunction.reportLength === 5 && playerGameboardFunction.reportLength === 5) {
         if (enemyGameboardFunction.reportShips() == "all ships sunk" || playerGameboardFunction.reportShips() == "all ships sunk") {
