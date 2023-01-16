@@ -46,13 +46,11 @@ const Createboard = () => {
                 for (let i = 0; i < row; i++) {
                     for (let j = 0; j < col; j++) {
                     const div = document.createElement('div')
-                    div.id = `[${i},${j}]`
+                    div.setAttribute('data-id', `[${i}, ${j}]`)
                     div.setAttribute('occupied', 'empty')
                     div.setAttribute('hit', false)
                     div.addEventListener('click', function() {
                         currentClick = div.id
-                        console.log(div.id)
-                        
                     })
                     container.appendChild(div).className = 'div'
                     }
@@ -61,14 +59,13 @@ const Createboard = () => {
                 for (let i = 0; i < row; i++) {
                     for (let j = 0; j < col; j++) {
                         const div = document.createElement('div')
-                        div.id = `[${i},${j}]`
+                        div.setAttribute('data-id', `[${i}, ${j}]`)
                         div.setAttribute('occupied', 'empty')
                         div.setAttribute('hit', false)
                         div.addEventListener('click', function() {
                             currentClick = div.id
-                            console.log(div.id)
                         })
-                        containertwo.appendChild(div).className = 'div'
+                        containertwo.appendChild(div).className = 'divs'
                     }
                 }
             }

@@ -11,17 +11,71 @@ const Gameboard = () => {
     }
 }
     }
-    const placeShip = (ship, coordinate, direction) => {
+    const placeShip = (ship, coordinate, direction, board) => {
         let xChange = coordinate[0]
         let yChange = coordinate[1]
-        const theDiv = document.getElementById(`[${xChange},${yChange}]`)
-        if (theDiv.getAttribute('occupied') == 'empty') {
+        let counter = 0;
+        if (counter !== 5) {
         if (direction == 'horizontal') {
             if (yChange + (ship.getLength()-1) < 10) {
+                for (let i = 0; i < ship.getLength(); i++) {
+                    const myDiv = document.querySelectorAll(`[data-id="[${xChange}, ${yChange}]"]`)[1]
+                    if (myDiv.getAttribute('occupied') == 'empty') {
+                        yChange++;
+                    } else {
+                        return console.log('choose another spot')
+                    }
+                }
+                listOfShips.push(ship)
+                ship.changeCoordinate(coordinate)
+                yChange = coordinate[1]
+                counter++
+                for (let i = 0; i < ship.getLength(); i++) {
+                    const theDiv = document.querySelectorAll(`[data-id="[${xChange}, ${yChange}]"]`)[1]
+                    theDiv.setAttribute('occupied', ship.myName)
+                    theDiv.className = 'divtwo'
+                    yChange++;
+                    console.log(theDiv.getAttribute('data-id'))
+                }
+            }
+        } else if (direction == 'vertical') {
+            if (xChange + (ship.getLength()-1) < 10) {
+                console.log('hi')
+                for (let i = 0; i < ship.getLength(); i++) {
+                    const myDiv = document.querySelectorAll(`[data-id="[${xChange}, ${yChange}]"]`)[1]
+                    if (myDiv.getAttribute('occupied') == 'empty') {
+                        xChange++;
+                        console.log('yes')
+                    } else {
+                        return console.log('choose another spot')
+                    }
+                }
+                listOfShips.push(ship)
+                ship.changeCoordinate(coordinate)
+                xChange = coordinate[0]
+                counter++
+            }
+                for (let i = 0; i < ship.getLength(); i++) {
+                    const myDiv = document.querySelectorAll(`[data-id="[${xChange}, ${yChange}]"]`)[1]
+                    myDiv.setAttribute('occupied', ship.myName)
+                    myDiv.className = 'divtwo'
+                    xChange++;
+                }
+            }
+        } 
+    }
+        /*else {
+            const theDiv = document.querySelectorAll(`[data-id="[${xChange}, ${yChange}]"]`)[1]
+            console.log(theDiv.getAttribute('data-id'))
+            console.log(listOfShips)
+            console.log(listOfShips.length)
+                if (theDiv.getAttribute('occupied') == 'empty') {
+                    if (direction == 'horizontal') {
+                    if (yChange + (ship.getLength()-1) < 10) {
                 listOfShips.push(ship)
                 ship.changeCoordinate(coordinate)
                 for (let i = 0; i < ship.getLength(); i++) {
-                const myDiv = document.getElementById(`[${xChange},${yChange}]`)
+                const myDiv = document.querySelector(`[data-id="[${xChange}, ${yChange}]"]`)
                 console.log(`[${xChange},${yChange}]`)
                 myDiv.setAttribute('occupied', ship)
                 myDiv.className = 'divtwo'
@@ -34,17 +88,17 @@ const Gameboard = () => {
                 listOfShips.push(ship)
                 ship.changeCoordinate(coordinate)
                 for (let i = 0; i < ship.getLength(); i++) {
-                const myDiv = document.getElementById(`[${xChange},${yChange}]`)
-                myDiv.setAttribute('occupied', ship)
-                myDiv.className = 'divtwo'
+                const theDiv = document.querySelector(`[data-id="[${xChange}, ${yChange}]"]`)
+                theDiv.setAttribute('occupied', ship.myName)
+                theDiv.className = 'divtwo'
                 xChange++;
                 }
             }
         }
-    } else {
-        console.log('no')
-    }
+    } 
 }
+}
+*/
     const receiveAttack = (div, coordinate) => {
         if (div.occupy == 'empty' && div.hit == false) {
             missedAttacks.push(coordinate)
