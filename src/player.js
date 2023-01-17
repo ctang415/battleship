@@ -10,6 +10,10 @@ const Player = (name) => {
         randomNumber.push(secondNum)
         return randomNumber
     }
+    const randomDirection = () => {
+        let theDirection = Math.round(Math.random())
+        return theDirection
+    }
     const attackBoard = (board, enemy, div, coordinate) => {
         if (myTurn) {
             setFalse()
@@ -17,7 +21,7 @@ const Player = (name) => {
             return board.receiveAttack(div, coordinate)
         }
     }
-    return { attackBoard, setFalse, computerMove }
+    return { attackBoard, setFalse, computerMove, randomDirection }
 }
 
 module.exports = Player

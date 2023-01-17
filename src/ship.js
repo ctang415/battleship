@@ -30,6 +30,15 @@ const Ship = (name, length) => {
             direction = 'horizontal'
         }
     }
+    const computerRandomDirection = (number) => {
+        if (number == 0) {
+            direction = 'horizontal'
+            return getDirection()
+        } else {
+            direction = 'vertical'
+            return getDirection()
+        }
+    }
     const getArray = () => array
     const isHit = (coordinate) => {
         let shipPart = array.findIndex(element => (element.xy.toString() == coordinate))
@@ -42,7 +51,7 @@ const Ship = (name, length) => {
         }
         return shipSunk;
     }
-    return { myName, getArray, changeCoordinate, isHit, isSunk, changeDirection, getLength, getDirection }
+    return { myName, getArray, changeCoordinate, isHit, isSunk, changeDirection, getLength, getDirection, computerRandomDirection }
 }
 
 module.exports = Ship

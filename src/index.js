@@ -28,11 +28,11 @@ const gamePlay = (() => {
     enemyBoard.labelGrid()
     playerBoard.createGrid(10, 10)
     enemyBoard.createGrid(10, 10)
-    enemyGameboardFunction.placeShip(myCarrier, computerPlayer.computerMove(), myCarrier.getDirection(), computerPlayer)
-    enemyGameboardFunction.placeShip(myBattleship, computerPlayer.computerMove(), 'vertical', computerPlayer)
-    enemyGameboardFunction.placeShip(myCruiser, computerPlayer.computerMove(), 'vertical', computerPlayer)
-    enemyGameboardFunction.placeShip(mySubmarine, computerPlayer.computerMove(), mySubmarine.getDirection(), computerPlayer)
-    enemyGameboardFunction.placeShip(myDestroyer, computerPlayer.computerMove(), 'vertical', computerPlayer)
+    enemyGameboardFunction.placeShip(myCarrier, computerPlayer.computerMove(), myCarrier.computerRandomDirection(computerPlayer.randomDirection()), computerPlayer)
+    enemyGameboardFunction.placeShip(myBattleship, computerPlayer.computerMove(), myBattleship.computerRandomDirection(computerPlayer.randomDirection()), computerPlayer)
+    enemyGameboardFunction.placeShip(myCruiser, computerPlayer.computerMove(), myCruiser.computerRandomDirection(computerPlayer.randomDirection()), computerPlayer)
+    enemyGameboardFunction.placeShip(mySubmarine, computerPlayer.computerMove(), mySubmarine.computerRandomDirection(computerPlayer.randomDirection()), computerPlayer)
+    enemyGameboardFunction.placeShip(myDestroyer, computerPlayer.computerMove(), myDestroyer.computerRandomDirection(computerPlayer.randomDirection()), computerPlayer)
     const endGame = () => {
         if (enemyGameboardFunction.reportLength === 5 && playerGameboardFunction.reportLength === 5) {
         if (enemyGameboardFunction.reportShips() == "all ships sunk" || playerGameboardFunction.reportShips() == "all ships sunk") {
