@@ -11,7 +11,7 @@ const Gameboard = () => {
     }
 }
     }
-    const placeShip = (ship, coordinate, direction, board) => {
+    const placeShip = (ship, coordinate, direction, player) => {
         let xChange = coordinate[0]
         let yChange = coordinate[1]
         let counter = 0;
@@ -23,7 +23,7 @@ const Gameboard = () => {
                     if (myDiv.getAttribute('occupied') == 'empty') {
                         yChange++;
                     } else {
-                        return console.log('choose another spot')
+                        return placeShip(ship, player.computerMove(), ship.getDirection(), player)
                     }
                 }
                 listOfShips.push(ship)
@@ -38,6 +38,9 @@ const Gameboard = () => {
                     console.log(theDiv.getAttribute('data-id'))
                 }
             }
+            else {
+                return placeShip(ship, player.computerMove(), ship.getDirection(), player)
+            }
         } else if (direction == 'vertical') {
             if (xChange + (ship.getLength()-1) < 10) {
                 console.log('hi')
@@ -45,18 +48,20 @@ const Gameboard = () => {
                     const myDiv = document.querySelectorAll(`[data-id="[${xChange}, ${yChange}]"]`)[1]
                     if (myDiv.getAttribute('occupied') == 'empty') {
                         xChange++;
-                        console.log('yes')
                     } else {
-                        return console.log('choose another spot')
+                        return placeShip(ship, player.computerMove(), ship.getDirection(), player)
                     }
                 }
                 listOfShips.push(ship)
                 ship.changeCoordinate(coordinate)
                 xChange = coordinate[0]
                 counter++
+            } else {
+                    return placeShip(ship, player.computerMove(), ship.getDirection(), player)
             }
                 for (let i = 0; i < ship.getLength(); i++) {
                     const myDiv = document.querySelectorAll(`[data-id="[${xChange}, ${yChange}]"]`)[1]
+                    console.log(myDiv.getAttribute('data-id'))
                     myDiv.setAttribute('occupied', ship.myName)
                     myDiv.className = 'divtwo'
                     xChange++;
