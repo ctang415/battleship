@@ -1,7 +1,14 @@
 const Player = (name) => {
     const myName = name
-    let myTurn = true;
-    const setFalse = () => myTurn = false
+    const playerProperties = {myTurn: true, canPlace: true}
+    const setPlaceFalse = () => {
+        return playerProperties.canPlace = false
+}
+    const getPlace = () => playerProperties.canPlace
+    const getTurn = () => playerProperties.myTurn
+    const setTurnFalse = () => { 
+        return playerProperties.myTurn = false 
+    }
     const computerMove = () => {
         let randomNumber = []
         let firstNum = Math.floor(Math.random() * 10)
@@ -21,7 +28,7 @@ const Player = (name) => {
             return board.receiveAttack(div, coordinate)
         }
     }
-    return { attackBoard, setFalse, computerMove, randomDirection }
+    return { attackBoard, setTurnFalse, computerMove, randomDirection, setPlaceFalse, getPlace, getTurn }
 }
 
 module.exports = Player

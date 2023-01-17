@@ -14,8 +14,7 @@ const Gameboard = () => {
     const placeShip = (ship, coordinate, direction, player) => {
         let xChange = coordinate[0]
         let yChange = coordinate[1]
-        let counter = 0;
-        if (counter !== 5) {
+        if (player.getPlace() == true) {
         if (direction == 'horizontal') {
             if (yChange + (ship.getLength()-1) < 10) {
                 for (let i = 0; i < ship.getLength(); i++) {
@@ -29,13 +28,11 @@ const Gameboard = () => {
                 listOfShips.push(ship)
                 ship.changeCoordinate(coordinate)
                 yChange = coordinate[1]
-                counter++
                 for (let i = 0; i < ship.getLength(); i++) {
                     const theDiv = document.querySelectorAll(`[data-id="[${xChange}, ${yChange}]"]`)[1]
                     theDiv.setAttribute('occupied', ship.myName)
                     theDiv.className = 'divtwo'
                     yChange++;
-                    console.log(theDiv.getAttribute('data-id'))
                 }
             }
             else {
@@ -43,7 +40,6 @@ const Gameboard = () => {
             }
         } else if (direction == 'vertical') {
             if (xChange + (ship.getLength()-1) < 10) {
-                console.log('hi')
                 for (let i = 0; i < ship.getLength(); i++) {
                     const myDiv = document.querySelectorAll(`[data-id="[${xChange}, ${yChange}]"]`)[1]
                     if (myDiv.getAttribute('occupied') == 'empty') {
@@ -55,7 +51,6 @@ const Gameboard = () => {
                 listOfShips.push(ship)
                 ship.changeCoordinate(coordinate)
                 xChange = coordinate[0]
-                counter++
             } else {
                     return placeShip(ship, player.computerMove(), ship.getDirection(), player)
             }
@@ -67,14 +62,12 @@ const Gameboard = () => {
                     xChange++;
                 }
             }
-        } 
-    }
-        /*else {
+        } else {
                     if (direction == 'horizontal') {
                     if (yChange + (ship.getLength()-1) < 10) {
                         for (let i = 0; i < ship.getLength(); i++) {
                             const myDiv = document.querySelectorAll(`[data-id="[${xChange}, ${yChange}]"]`)[0]
-                            if (myDiv.getAttribute('occupied') == 'empty) {
+                            if (myDiv.getAttribute('occupied') == 'empty') {
                                 yChange++
                             } else {
                                 return console.log("choose a different spot")
@@ -85,11 +78,12 @@ const Gameboard = () => {
                         yChange = coordinate[1]
                         for (let i = 0; i < ship.getLength(); i++) {
                             const myDiv = document.querySelectorAll(`[data-id="[${xChange}, ${yChange}]"]`)[0]
-                            myDiv.setAttribute('occupied', ship)
+                            myDiv.setAttribute('occupied', ship.myName)
                             myDiv.className = 'divtwo'
                             yChange++;
                         }
-                } else {
+                    }
+            } else if (direction == 'vertical') {
                     if (xChange + (ship.getLength()-1) < 10) {
                         for (let i = 0; i < ship.getLength(); i++) {
                             const myDiv = document.querySelectorAll(`[data-id="[${xChange}, ${yChange}]"]`)[0]
@@ -108,11 +102,10 @@ const Gameboard = () => {
                             theDiv.className = 'divtwo'
                             xChange++;
                         }
-                    }
                  }
-            } 
+            }
         }
-*/
+    }
     const receiveAttack = (div, coordinate) => {
         if (div.occupy == 'empty' && div.hit == false) {
             missedAttacks.push(coordinate)
