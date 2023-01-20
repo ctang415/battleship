@@ -23,11 +23,66 @@ const Ship = (name, length) => {
         }
     const getLength = () => length
     const getDirection = () => direction
-    const changeDirection = () => {
+    const changeDirection = (coordinate) => {
+        let xChange = coordinate[0]
+        let yChange = coordinate[1]
         if (direction == 'horizontal') {
-            direction = 'vertical'
+            if (xChange + (getLength()-1) < 10) {
+                xChange++
+                for (let i = 1; i < getLength(); i++) {
+                    const myDiv = document.querySelectorAll(`[data-id="[${xChange}, ${yChange}]"]`)[0]
+                    if (myDiv.getAttribute('occupied') == 'empty') {
+                        xChange++
+                    } else {
+                        return console.log('spot is filled')
+                    }
+                }
+                xChange = coordinate[0]
+                for (let i = 0; i < getLength(); i++) {
+                    let coords = [xChange, yChange]
+                    const myDiv = document.querySelectorAll(`[data-id="[${xChange}, ${yChange}]"]`)[0]
+                    myDiv.setAttribute('occupied', 'empty')
+                    myDiv.className = 'div'
+                    yChange++
+                }
+                yChange = coordinate[1]
+                direction = 'vertical'
+                for (let i = 0; i< getLength(); i++) {
+                    const myDiv = document.querySelectorAll(`[data-id="[${xChange}, ${yChange}]"]`)[0]
+                    myDiv.setAttribute('occupied', myName)
+                    myDiv.className = 'divtwo'
+                    changeCoordinate(coordinate)
+                    xChange++
+                }
+            }
         } else {
-            direction = 'horizontal'
+            if (yChange + (getLength()-1) < 10) {
+                yChange++
+                for (let i = 1; i < getLength(); i++) {
+                    const myDiv = document.querySelectorAll(`[data-id="[${xChange}, ${yChange}]"]`)[0]
+                    if (myDiv.getAttribute('occupied') == 'empty') {
+                        yChange++
+                    } else {
+                        return console.log('please choose a different spot')
+                    }
+                }
+                yChange = coordinate[1]
+                for (let i = 0; i < getLength(); i++) {
+                    const myDiv = document.querySelectorAll(`[data-id="[${xChange}, ${yChange}]"]`)[0]
+                    myDiv.setAttribute('occupied', 'empty')
+                    myDiv.className = 'div'
+                    xChange++
+                }
+                xChange = coordinate[0]
+                direction = 'horizontal'
+                for (let i = 0; i < getLength(); i++) {
+                    const myDiv = document.querySelectorAll(`[data-id="[${xChange}, ${yChange}]"]`)[0]
+                    myDiv.setAttribute('occupied', myName)
+                    myDiv.className = 'divtwo'
+                    changeCoordinate(coordinate)
+                    yChange++
+                }
+            }
         }
     }
     const computerRandomDirection = (number) => {
@@ -51,7 +106,7 @@ const Ship = (name, length) => {
         }
         return shipSunk;
     }
-    return { myName, getArray, changeCoordinate, isHit, isSunk, changeDirection, getLength, getDirection, computerRandomDirection }
+    return { myName, getArray, array, changeCoordinate, isHit, isSunk, changeDirection, getLength, getDirection, computerRandomDirection }
 }
 
 module.exports = Ship

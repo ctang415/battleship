@@ -5,9 +5,9 @@ const Createboard = () => {
     const playerLabel = document.querySelector('.playerlabel')
     const computerLabel = document.querySelector('.computerlabel')
     const side = document.querySelector('.side')
-    const sidetwo = document.querySelector('.sidetwo')
+    const sideTwo = document.querySelector('.sidetwo')
     const container = document.querySelector('.container')
-    const containertwo = document.querySelector('.containertwo')
+    const containerTwo = document.querySelector('.containertwo')
     const findClick = () => currentClick
     const nameBoard = (name) => {
         if (!playerLabel.firstChild) {
@@ -36,8 +36,8 @@ const Createboard = () => {
                 const sideLabel = document.createElement('span')
                 topLabel.textContent = sortAlphabet[i]
                 sideLabel.textContent = i
-                containertwo.appendChild(topLabel).className = 'span'
-                sidetwo.appendChild(sideLabel)
+                containerTwo.appendChild(topLabel).className = 'span'
+                sideTwo.appendChild(sideLabel)
             }
         }
     }
@@ -49,9 +49,6 @@ const Createboard = () => {
                     div.setAttribute('data-id', `[${i}, ${j}]`)
                     div.setAttribute('occupied', 'empty')
                     div.setAttribute('hit', false)
-                    div.addEventListener('click', function() {
-                        currentClick = div.id
-                    })
                     container.appendChild(div).className = 'div'
                     }
                 }
@@ -65,11 +62,12 @@ const Createboard = () => {
                         div.addEventListener('click', function() {
                             currentClick = div.id
                         })
-                        containertwo.appendChild(div).className = 'divs'
+                        containerTwo.appendChild(div).className = 'divs'
                     }
                 }
             }
         }
+
     return { createGrid, nameBoard, labelGrid, findClick }
 }
 
