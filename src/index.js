@@ -9,28 +9,27 @@ const gamePlay = (() => {
     const playerGameboardFunction = Gameboard()
     const playerOne = Player('me')
     const computerPlayer = Player('AI')
-    const myShips = []
-    const enemyShips = []
+    const allShips = []
     const myCarrier = Ship('myCarrier', 5)
     const myBattleship = Ship('myBattleship', 4)
     const myCruiser = Ship('myCruiser', 3)
     const mySubmarine = Ship('mySubmarine', 3)
     const myDestroyer = Ship('myDestroyer', 2)
-    myShips.push(myCarrier)
-    myShips.push(myBattleship)
-    myShips.push(myCruiser)
-    myShips.push(mySubmarine)
-    myShips.push(myDestroyer)
+    allShips.push(myCarrier)
+    allShips.push(myBattleship)
+    allShips.push(myCruiser)
+    allShips.push(mySubmarine)
+    allShips.push(myDestroyer)
     const enemyCarrier = Ship('enemyCarrier', 5)
     const enemyBattleship = Ship('enemyBattleship', 4)
     const enemyCruiser = Ship('enemyCruiser', 3)
     const enemySubmarine = Ship('enemySubmarine', 3)
     const enemyDestroyer = Ship('enemyDestroyer', 2)
-    enemyShips.push(enemyCarrier)
-    enemyShips.push(enemyBattleship)
-    enemyShips.push(enemyCruiser)
-    enemyShips.push(enemySubmarine)
-    enemyShips.push(enemyDestroyer)
+    allShips.push(enemyCarrier)
+    allShips.push(enemyBattleship)
+    allShips.push(enemyCruiser)
+    allShips.push(enemySubmarine)
+    allShips.push(enemyDestroyer)
     computerPlayer.setTurnFalse()
     const playerBoard = Createboard()
     const enemyBoard = Createboard()
@@ -41,11 +40,11 @@ const gamePlay = (() => {
     playerBoard.createGrid(10, 10)
     enemyBoard.createGrid(10, 10)
     const divChange = (() => {
-        let divs = document.querySelectorAll('.div')
+        const divs = document.querySelectorAll('.div');
         divs.forEach(div => div.addEventListener('click', function() {
             if (this.getAttribute('occupied') !== 'empty') {
                 let shipName = this.getAttribute('occupied')
-                let theShip = myShips.find(element => element.myName == shipName)
+                let theShip = allShips.find(element => element.myName === shipName)
                 let shipCoord = theShip.getArray()[0].xy
                 let shipX = shipCoord[1]
                 let shipY = shipCoord[4]
@@ -56,6 +55,51 @@ const gamePlay = (() => {
             }
         })
     )})()
+
+      document.addEventListener('DOMContentLoaded', (event) => {
+        function handleDragStart(ev) {
+            console.log(ev.target)
+            this.classList.remove('divtwo')
+            console.log('one')
+        }
+
+        function handleDragEnd(ev) {
+            console.log('two')
+        }
+
+        function handleDragOver(ev) {
+          ev.preventDefault();
+          console.log('three')
+          ev.target.classList.add('divtwo');
+        }
+      
+        function handleDragEnter(ev) {
+            console.log('four')
+            ev.target.classList.add('divtwo');
+        }
+      
+        function handleDragLeave(ev) {
+            console.log('five')
+          ev.target.classList.remove('divtwo');
+        }
+
+        function handleDrop(ev) {
+            ev.preventDefault();
+            console.log('six')
+            ev.target.classList.add('divtwo');
+            }
+
+        let items = document.querySelectorAll('.div');
+        items.forEach((item) => {
+          item.addEventListener('dragstart', handleDragStart);
+          item.addEventListener('dragover', handleDragOver);
+          item.addEventListener('dragenter', handleDragEnter);
+          item.addEventListener('dragleave', handleDragLeave);
+          item.addEventListener('dragend', handleDragEnd);
+          item.addEventListener('drop', handleDrop);
+        });
+      });
+
     enemyGameboardFunction.placeShip(enemyCarrier, computerPlayer.computerMove(), enemyCarrier.computerRandomDirection(computerPlayer.randomDirection()), computerPlayer)
     enemyGameboardFunction.placeShip(enemyBattleship, computerPlayer.computerMove(), enemyBattleship.computerRandomDirection(computerPlayer.randomDirection()), computerPlayer)
     enemyGameboardFunction.placeShip(enemyCruiser, computerPlayer.computerMove(), enemyCruiser.computerRandomDirection(computerPlayer.randomDirection()), computerPlayer)
@@ -67,6 +111,7 @@ const gamePlay = (() => {
     playerGameboardFunction.placeShip(myCruiser, [6, 6], myCruiser.getDirection(), computerPlayer)
     playerGameboardFunction.placeShip(mySubmarine, [2, 2], mySubmarine.getDirection(), computerPlayer)
     playerGameboardFunction.placeShip(myDestroyer, [7, 7], myDestroyer.getDirection(), computerPlayer)
+    playerOne.attackBoard(allShips, enemyGameboardFunction, computerPlayer, [2, 3])
     const endGame = () => {
         if (enemyGameboardFunction.reportLength === 5 && playerGameboardFunction.reportLength === 5) {
         if (enemyGameboardFunction.reportShips() == "all ships sunk" || playerGameboardFunction.reportShips() == "all ships sunk") {

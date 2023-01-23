@@ -46,6 +46,7 @@ const Createboard = () => {
                 for (let i = 0; i < row; i++) {
                     for (let j = 0; j < col; j++) {
                     const div = document.createElement('div')
+                    div.id = 'empty'
                     div.setAttribute('data-id', `[${i}, ${j}]`)
                     div.setAttribute('occupied', 'empty')
                     div.setAttribute('hit', false)

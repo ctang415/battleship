@@ -79,6 +79,7 @@ const Gameboard = () => {
                         for (let i = 0; i < ship.getLength(); i++) {
                             const myDiv = document.querySelectorAll(`[data-id="[${xChange}, ${yChange}]"]`)[0]
                             myDiv.setAttribute('occupied', ship.myName)
+                            myDiv.draggable = true;
                             myDiv.className = 'divtwo'
                             yChange++;
                         }
@@ -99,6 +100,7 @@ const Gameboard = () => {
                         for (let i = 0; i < ship.getLength(); i++) {
                             const theDiv = document.querySelectorAll(`[data-id="[${xChange}, ${yChange}]"]`)[0]
                             theDiv.setAttribute('occupied', ship.myName)
+                            theDiv.draggable = true;
                             theDiv.className = 'divtwo'
                             xChange++;
                         }
@@ -106,17 +108,25 @@ const Gameboard = () => {
             }
         }
     }
-    const receiveAttack = (div, coordinate) => {
-        if (div.occupy == 'empty' && div.hit == false) {
-            missedAttacks.push(coordinate)
-            return "miss"
-        } else if (div.occupy !== 'empty' && div.hit == false) {
-            div.hit = true
-            let ship = div.occupy
-            ship.isHit(coordinate)
-             return "hit"
-        } else {
-            return "already hit"
+    const receiveAttack = (array, coordinate, enemy) => {
+        let xChange = coordinate[0]
+        let yChange = coordinate[1]
+        console.log(xChange)
+        console.log(yChange)
+        if (enemy.getTurn() == false) {
+            const theDiv = document.querySelectorAll(`[data-id="[${xChange}, ${yChange}]"]`)[1]
+            console.log(theDiv.getAttribute('occupied'))
+            if (theDiv.getAttribute('occupied') == 'empty' && theDiv.getAttribute('hit') == 'false') {
+                missedAttacks.push(coordinate)
+                theDiv.setAttribute('hit', true)
+                theDiv.className = 'miss'
+            } else if (theDiv.getAttribute('occupied') !== 'empty' && theDiv.getAttribute('hit') == 'false') {
+                theDiv.setAttribute('hit', true)
+                theDiv.className = 'hit'
+                let shipName = theDiv.getAttribute('occupied')
+                let theShip = array.find(element => element.myName === shipName)
+                theShip.isHit(coordinate)
+            }
         }
     }
     const reportShips = () => {

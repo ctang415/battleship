@@ -22,6 +22,28 @@
     background-color: aquamarine;
 }
 
+.over {
+    border: 3px dotted black;
+}
+
+.miss {
+    content: "\274c";
+    font-size: 50px; 
+    color: black;
+    line-height: 100px;
+    text-align: center;
+}
+
+.hit {
+    border: 3px solid red;
+    background-color : red;
+    content: "\274c";
+    font-size: 50px; 
+    color: black;
+    line-height: 100px;
+    text-align: center;
+}
+
 .divtwo {
     display: flex;
     border: solid black;
