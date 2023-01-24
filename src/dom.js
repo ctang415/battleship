@@ -46,7 +46,6 @@ const Createboard = () => {
                 for (let i = 0; i < row; i++) {
                     for (let j = 0; j < col; j++) {
                     const div = document.createElement('div')
-                    div.id = 'empty'
                     div.setAttribute('data-id', `[${i}, ${j}]`)
                     div.setAttribute('occupied', 'empty')
                     div.setAttribute('hit', false)
@@ -60,9 +59,6 @@ const Createboard = () => {
                         div.setAttribute('data-id', `[${i}, ${j}]`)
                         div.setAttribute('occupied', 'empty')
                         div.setAttribute('hit', false)
-                        div.addEventListener('click', function() {
-                            currentClick = div.id
-                        })
                         containerTwo.appendChild(div).className = 'divs'
                     }
                 }

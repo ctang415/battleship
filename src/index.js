@@ -39,22 +39,22 @@ const gamePlay = (() => {
     enemyBoard.labelGrid()
     playerBoard.createGrid(10, 10)
     enemyBoard.createGrid(10, 10)
-    const divChange = (() => {
-        const divs = document.querySelectorAll('.div');
-        divs.forEach(div => div.addEventListener('click', function() {
-            if (this.getAttribute('occupied') !== 'empty') {
-                let shipName = this.getAttribute('occupied')
-                let theShip = allShips.find(element => element.myName === shipName)
-                let shipCoord = theShip.getArray()[0].xy
-                let shipX = shipCoord[0]
-                let shipY = shipCoord[1]
-                theShip.changeDirection([parseInt(shipX), parseInt(shipY)])
-            }
-            else {
-                console.log(this.getAttribute('data-id'))
-            }
-        })
-    )})()
+    function directionChange() {
+        if (this.getAttribute('occupied') !== 'empty') {
+            let shipName = this.getAttribute('occupied')
+            let theShip = allShips.find(element => element.myName === shipName)
+            let shipCoord = theShip.getArray()[0].xy
+            let shipX = shipCoord[0]
+            let shipY = shipCoord[1]
+            theShip.changeDirection([parseInt(shipX), parseInt(shipY)])
+        }
+    }
+    const divs = document.querySelectorAll('.div');
+    divs.forEach(div => div.addEventListener('click', directionChange, true))
+    function removeListeners() {
+        const divs = document.querySelectorAll('.div')
+        divs.forEach(div => div.addEventListener('click', directionChange, false))
+    }
     
       document.addEventListener('DOMContentLoaded', (event) => {
         function handleDragStart(ev) {
@@ -99,7 +99,6 @@ const gamePlay = (() => {
           item.addEventListener('drop', handleDrop);
         });
       });
-
     enemyGameboardFunction.placeShip(enemyCarrier, computerPlayer.computerMove(), enemyCarrier.computerRandomDirection(computerPlayer.randomDirection()), computerPlayer)
     enemyGameboardFunction.placeShip(enemyBattleship, computerPlayer.computerMove(), enemyBattleship.computerRandomDirection(computerPlayer.randomDirection()), computerPlayer)
     enemyGameboardFunction.placeShip(enemyCruiser, computerPlayer.computerMove(), enemyCruiser.computerRandomDirection(computerPlayer.randomDirection()), computerPlayer)

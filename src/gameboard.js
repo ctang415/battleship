@@ -31,7 +31,6 @@ const Gameboard = () => {
                 for (let i = 0; i < ship.getLength(); i++) {
                     const theDiv = document.querySelectorAll(`[data-id="[${xChange}, ${yChange}]"]`)[1]
                     theDiv.setAttribute('occupied', ship.myName)
-                    theDiv.className = 'divtwo'
                     yChange++;
                 }
             }
@@ -58,7 +57,6 @@ const Gameboard = () => {
                     const myDiv = document.querySelectorAll(`[data-id="[${xChange}, ${yChange}]"]`)[1]
                     console.log(myDiv.getAttribute('data-id'))
                     myDiv.setAttribute('occupied', ship.myName)
-                    myDiv.className = 'divtwo'
                     xChange++;
                 }
             }
