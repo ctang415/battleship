@@ -120,9 +120,11 @@ const Gameboard = () => {
                 missedAttacks.push(coordinate)
                 theDiv.setAttribute('hit', true)
                 theDiv.className = 'miss'
+                theDiv.textContent = 'X'
             } else if (theDiv.getAttribute('occupied') !== 'empty' && theDiv.getAttribute('hit') == 'false') {
                 theDiv.setAttribute('hit', true)
                 theDiv.className = 'hit'
+                theDiv.textContent = 'X'
                 let shipName = theDiv.getAttribute('occupied')
                 let theShip = array.find(element => element.myName === shipName)
                 theShip.isHit(coordinate)

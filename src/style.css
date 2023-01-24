@@ -27,20 +27,17 @@
 }
 
 .miss {
-    content: "\274c";
-    font-size: 50px; 
+    border: solid black;
+    font-size: 240%;
     color: black;
-    line-height: 100px;
     text-align: center;
 }
 
 .hit {
-    border: 3px solid red;
+    border: solid black;
     background-color : red;
-    content: "\274c";
-    font-size: 50px; 
+    font-size: 240%;
     color: black;
-    line-height: 100px;
     text-align: center;
 }
 
