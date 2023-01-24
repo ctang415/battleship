@@ -46,8 +46,8 @@ const gamePlay = (() => {
                 let shipName = this.getAttribute('occupied')
                 let theShip = allShips.find(element => element.myName === shipName)
                 let shipCoord = theShip.getArray()[0].xy
-                let shipX = shipCoord[1]
-                let shipY = shipCoord[4]
+                let shipX = shipCoord[0]
+                let shipY = shipCoord[1]
                 theShip.changeDirection([parseInt(shipX), parseInt(shipY)])
             }
             else {
@@ -55,7 +55,7 @@ const gamePlay = (() => {
             }
         })
     )})()
-
+    
       document.addEventListener('DOMContentLoaded', (event) => {
         function handleDragStart(ev) {
             console.log(ev.target)
