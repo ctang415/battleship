@@ -108,14 +108,11 @@ const Gameboard = () => {
             }
         }
     }
-    const receiveAttack = (array, coordinate, enemy) => {
+    const receiveAttack = (array, coordinate, player) => {
         let xChange = coordinate[0]
         let yChange = coordinate[1]
-        console.log(xChange)
-        console.log(yChange)
-        if (enemy.getTurn() == false) {
+        if (player.getTurn() == false) {
             const theDiv = document.querySelectorAll(`[data-id="[${xChange}, ${yChange}]"]`)[1]
-            console.log(theDiv.getAttribute('occupied'))
             if (theDiv.getAttribute('occupied') == 'empty' && theDiv.getAttribute('hit') == 'false') {
                 missedAttacks.push(coordinate)
                 theDiv.setAttribute('hit', true)
@@ -130,7 +127,24 @@ const Gameboard = () => {
                 theShip.isHit(coordinate)
             }
         }
+        else {
+            const theDiv = document.querySelectorAll(`[data-id="[${xChange}, ${yChange}]"]`)[0]
+            console.log(theDiv.getAttribute('occupied'))
+            if (theDiv.getAttribute('occupied') == 'empty' && theDiv.getAttribute('hit') == 'false') {
+                missedAttacks.push(coordinate)
+                theDiv.setAttribute('hit', true)
+                theDiv.className = 'miss'
+                theDiv.textContent = 'X'
+            } else if (theDiv.getAttribute('occupied') !== 'empty' && theDiv.getAttribute('hit') == 'false') {
+                theDiv.setAttribute('hit', true)
+                theDiv.className = 'hit'
+                theDiv.textContent = 'X'
+                let shipName = theDiv.getAttribute('occupied')
+                let theShip = array.find(element => element.myName === shipName)
+                theShip.isHit(coordinate)
+        }
     }
+}
     const reportShips = () => {
         const isTrue = (element) => element.isSunk() == true
         if(listOfShips.every(isTrue)) {

@@ -111,7 +111,8 @@ const gamePlay = (() => {
     playerGameboardFunction.placeShip(myCruiser, [6, 6], myCruiser.getDirection(), computerPlayer)
     playerGameboardFunction.placeShip(mySubmarine, [2, 2], mySubmarine.getDirection(), computerPlayer)
     playerGameboardFunction.placeShip(myDestroyer, [7, 7], myDestroyer.getDirection(), computerPlayer)
-    playerOne.attackBoard(allShips, enemyGameboardFunction, computerPlayer, [2, 3])
+    playerOne.attackBoard(allShips, enemyGameboardFunction, computerPlayer, computerPlayer, [2, 3])
+    computerPlayer.attackBoard(allShips, playerGameboardFunction, computerPlayer, playerOne, computerPlayer.computerMove())
     const endGame = () => {
         if (enemyGameboardFunction.reportLength === 5 && playerGameboardFunction.reportLength === 5) {
         if (enemyGameboardFunction.reportShips() == "all ships sunk" || playerGameboardFunction.reportShips() == "all ships sunk") {

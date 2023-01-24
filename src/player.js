@@ -24,9 +24,9 @@ const Player = (name) => {
         let theDirection = Math.round(Math.random())
         return theDirection
     }
-    const attackBoard = (array, board, enemy, coordinate) => {
+    const attackBoard = (array, board, player, enemy, coordinate) => {
         if (playerProperties.myTurn == true) {
-            board.receiveAttack(array, coordinate, enemy)
+            board.receiveAttack(array, coordinate, player)
             setTurnFalse()
             enemy.setTurnTrue()
         }
