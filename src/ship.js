@@ -107,9 +107,8 @@ const Ship = (name, length) => {
     const isSunk = () => {
         const isTrue = (element) => element.hit == true
         if (array.every(isTrue)) {
-        return shipSunk = true;
+            return shipSunk = true;
         }
-        return shipSunk;
     }
     return { myName, getArray, changeCoordinate, isHit, isSunk, changeDirection, getLength, getDirection, computerRandomDirection }
 }

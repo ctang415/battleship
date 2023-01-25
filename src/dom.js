@@ -7,7 +7,6 @@ const Createboard = () => {
     const sideTwo = document.querySelector('.sidetwo')
     const container = document.querySelector('.container')
     const containerTwo = document.querySelector('.containertwo')
-    const body = document.querySelector('.body')
     const nameBoard = (name) => {
         if (!playerLabel.firstChild) {
         const playerName = document.createElement('span')

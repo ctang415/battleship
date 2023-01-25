@@ -64,6 +64,7 @@ const gamePlay = (() => {
             playerOne.attackBoard(allShips, enemyGameboardFunction, computerPlayer, computerPlayer, [clickX, clickY])
             this.style.pointerEvents = 'none'
             computerPlayer.attackBoard(allShips, playerGameboardFunction, computerPlayer, playerOne, computerPlayer.computerMove())
+            endGame()
         }))
     })
   
@@ -124,12 +125,15 @@ const gamePlay = (() => {
     playerGameboardFunction.placeShip(mySubmarine, [2, 2], mySubmarine.getDirection(), computerPlayer)
     playerGameboardFunction.placeShip(myDestroyer, [7, 7], myDestroyer.getDirection(), computerPlayer)
     const endGame = () => {
-        if (enemyGameboardFunction.reportLength === 5 && playerGameboardFunction.reportLength === 5) {
+        const enemyDivs = document.querySelectorAll('.divenemy')
+        if (enemyGameboardFunction.reportLength() === 5 && playerGameboardFunction.reportLength() === 5) {
         if (enemyGameboardFunction.reportShips() == "all ships sunk" || playerGameboardFunction.reportShips() == "all ships sunk") {
             if (enemyGameboardFunction.reportShips()) {
-                return "You lose!"
-            } else {
-                return "You won!"
+                enemyDivs.forEach(div => div.style.pointerEvents = 'none')
+                return console.log("You win!")
+            } else if (playerGameboardFunction.reportShips()){
+                enemyDivs.forEach(div => div.style.pointerEvents = 'none')
+                return console.log("You lose!")
             }
         }
     }
