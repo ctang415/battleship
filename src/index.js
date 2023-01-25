@@ -126,14 +126,18 @@ const gamePlay = (() => {
     playerGameboardFunction.placeShip(myDestroyer, [7, 7], myDestroyer.getDirection(), computerPlayer)
     const endGame = () => {
         const enemyDivs = document.querySelectorAll('.divenemy')
+        const overlay = document.querySelector('.overlay')
+        const content = document.querySelector('.content')
         if (enemyGameboardFunction.reportLength() === 5 && playerGameboardFunction.reportLength() === 5) {
         if (enemyGameboardFunction.reportShips() == "all ships sunk" || playerGameboardFunction.reportShips() == "all ships sunk") {
             if (enemyGameboardFunction.reportShips()) {
                 enemyDivs.forEach(div => div.style.pointerEvents = 'none')
-                return console.log("You win!")
+                overlay.style.display = 'inline-block'
+                return content.textContent = 'You win!'
             } else if (playerGameboardFunction.reportShips()){
                 enemyDivs.forEach(div => div.style.pointerEvents = 'none')
-                return console.log("You lose!")
+                overlay.style.display = 'inline-block'
+                return content.textContent = 'You lose!'
             }
         }
     }
