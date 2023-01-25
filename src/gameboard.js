@@ -55,12 +55,11 @@ const Gameboard = () => {
             }
                 for (let i = 0; i < ship.getLength(); i++) {
                     const myDiv = document.querySelectorAll(`[data-id="[${xChange}, ${yChange}]"]`)[1]
-                    console.log(myDiv.getAttribute('data-id'))
                     myDiv.setAttribute('occupied', ship.myName)
                     xChange++;
                 }
             }
-        } else {
+        } else if (player.getPlace() !==  true) {
                     if (direction == 'horizontal') {
                     if (yChange + (ship.getLength()-1) < 10) {
                         for (let i = 0; i < ship.getLength(); i++) {
@@ -127,7 +126,6 @@ const Gameboard = () => {
         }
         else {
             const theDiv = document.querySelectorAll(`[data-id="[${xChange}, ${yChange}]"]`)[0]
-            console.log(theDiv.getAttribute('occupied'))
             if (theDiv.getAttribute('occupied') == 'empty' && theDiv.getAttribute('hit') == 'false') {
                 missedAttacks.push(coordinate)
                 theDiv.setAttribute('hit', true)

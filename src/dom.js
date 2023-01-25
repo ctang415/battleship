@@ -1,14 +1,13 @@
 const Createboard = () => {
     const alphabet = 'ABCDEFGHIJ'
     const sortAlphabet = alphabet.split('')
-    let currentClick;
     const playerLabel = document.querySelector('.playerlabel')
     const computerLabel = document.querySelector('.computerlabel')
     const side = document.querySelector('.side')
     const sideTwo = document.querySelector('.sidetwo')
     const container = document.querySelector('.container')
     const containerTwo = document.querySelector('.containertwo')
-    const findClick = () => currentClick
+    const body = document.querySelector('.body')
     const nameBoard = (name) => {
         if (!playerLabel.firstChild) {
         const playerName = document.createElement('span')
@@ -49,7 +48,7 @@ const Createboard = () => {
                     div.setAttribute('data-id', `[${i}, ${j}]`)
                     div.setAttribute('occupied', 'empty')
                     div.setAttribute('hit', false)
-                    container.appendChild(div).className = 'div'
+                    container.appendChild(div).className = 'divplayer'
                     }
                 }
             } else {
@@ -59,13 +58,12 @@ const Createboard = () => {
                         div.setAttribute('data-id', `[${i}, ${j}]`)
                         div.setAttribute('occupied', 'empty')
                         div.setAttribute('hit', false)
-                        containerTwo.appendChild(div).className = 'divs'
+                        containerTwo.appendChild(div).className = 'divenemy'
                     }
                 }
             }
         }
-
-    return { createGrid, nameBoard, labelGrid, findClick }
+    return { createGrid, nameBoard, labelGrid }
 }
 
 module.exports = Createboard

@@ -41,7 +41,7 @@ const Ship = (name, length) => {
                     const myDiv = document.querySelectorAll(`[data-id="[${xChange}, ${yChange}]"]`)[0]
                     myDiv.setAttribute('occupied', 'empty')
                     myDiv.draggable = false;
-                    myDiv.className = 'div'
+                    myDiv.className = 'divplayer'
                     yChange++
                 }
                 yChange = coordinate[1]
@@ -71,7 +71,7 @@ const Ship = (name, length) => {
                     const myDiv = document.querySelectorAll(`[data-id="[${xChange}, ${yChange}]"]`)[0]
                     myDiv.setAttribute('occupied', 'empty')
                     myDiv.draggable = false;
-                    myDiv.className = 'div'
+                    myDiv.className = 'divplayer'
                     xChange++
                 }
                 xChange = coordinate[0]
