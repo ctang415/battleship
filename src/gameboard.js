@@ -138,7 +138,9 @@ const Gameboard = () => {
                 let shipName = theDiv.getAttribute('occupied')
                 let theShip = array.find(element => element.myName === shipName)
                 theShip.isHit(coordinate)
-        }
+            } else {
+                return receiveAttack(array, player.computerMove(), player)
+            }
     }
 }
     const reportShips = () => {
