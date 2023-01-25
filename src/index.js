@@ -62,6 +62,7 @@ const gamePlay = (() => {
             let clickX = currentClick[1]
             let clickY = currentClick[4]
             playerOne.attackBoard(allShips, enemyGameboardFunction, computerPlayer, computerPlayer, [clickX, clickY])
+            this.style.pointerEvents = 'none'
             computerPlayer.attackBoard(allShips, playerGameboardFunction, computerPlayer, playerOne, computerPlayer.computerMove())
         }))
     })
