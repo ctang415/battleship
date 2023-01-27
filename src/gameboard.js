@@ -67,7 +67,7 @@ const Gameboard = () => {
                 if (yChange + (ship.getLength()-1) < 10) {
                     for (let i = 0; i < ship.getLength(); i++) {
                         const myDiv = document.querySelectorAll(`[data-id="[${xChange}, ${yChange}]"]`)[0]
-                        if (myDiv.getAttribute('occupied') == 'empty') {
+                        if (myDiv.getAttribute('occupied') == 'empty' || myDiv.getAttribute('occupied') == ship.shipName) {
                             yChange++
                         } else {
                             return console.log("choose a different spot")
@@ -90,7 +90,7 @@ const Gameboard = () => {
                 if (xChange + (ship.getLength()-1) < 10) {
                     for (let i = 0; i < ship.getLength(); i++) {
                         const myDiv = document.querySelectorAll(`[data-id="[${xChange}, ${yChange}]"]`)[0]
-                        if (myDiv.getAttribute('occupied') == 'empty') {
+                        if (myDiv.getAttribute('occupied') == 'empty' || myDiv.getAttribute('occupied') == ship.shipName) {
                             xChange++
                         } else {
                             return console.log("pick a new spot")
@@ -104,7 +104,6 @@ const Gameboard = () => {
                         for (let i = 0; i < ship.getLength(); i++) {
                             const theDiv = document.querySelectorAll(`[data-id="[${xChange}, ${yChange}]"]`)[0]
                             theDiv.setAttribute('occupied', ship.myName)
-
                             theDiv.draggable = true;
                             theDiv.className = 'divtwo'
                             xChange++;

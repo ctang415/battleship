@@ -92,9 +92,12 @@ const gamePlay = (() => {
 
       document.addEventListener('DOMContentLoaded', (event) => {
         let previousDiv;
+        let currentShip;
         function handleDragStart(ev) {
             ev.target.classList.add('divplayer')
             ev.dataTransfer.setData("data", ev.target.getAttribute('occupied'))
+            let newData = ev.dataTransfer.getData('data')
+            currentShip = allShips.find(element => element.myName === newData)
             previousDiv = ev.target.getAttribute('data-id')
             console.log('one')
         }
@@ -125,7 +128,7 @@ const gamePlay = (() => {
         function handleDrop(ev) {
             ev.preventDefault();
             console.log('six')
-            if (ev.target.getAttribute('occupied') == 'empty') {
+            if (ev.target.getAttribute('occupied') == 'empty' || ev.target.getAttribute('occupied') == currentShip.myName) {
                 let newData = ev.dataTransfer.getData('data')
                 let newCoord = ev.target.getAttribute('data-id')
                 let coordX = parseInt(newCoord[1])
@@ -133,7 +136,6 @@ const gamePlay = (() => {
                 let shipName = allShips.find(element => element.myName === newData)
                 let length = shipName.getLength();
                 console.log(previousDiv)
-                playerGameboardFunction.placeShip(shipName, [coordX, coordY], shipName.getDirection(), computerPlayer)
                 let oldX = parseInt(previousDiv[1])
                 let oldY = parseInt(previousDiv[4])
                 if (shipName.getDirection() == 'horizontal') {
@@ -156,6 +158,7 @@ const gamePlay = (() => {
                         oldX++
                     }
                 }
+                playerGameboardFunction.placeShip(shipName, [coordX, coordY], shipName.getDirection(), computerPlayer)
         }
     }
 
