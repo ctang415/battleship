@@ -57,6 +57,8 @@ const gamePlay = (() => {
     enemyBoard.labelGrid()
     playerBoard.createGrid(10, 10)
     enemyBoard.createGrid(10, 10)
+    const playerScore = document.querySelector('.playerscore')
+    const enemyScore = document.querySelector('.enemyscore')
     const restartButton = document.getElementById('play')
     restartButton.addEventListener('click', function () {
         window.location.reload()
@@ -85,12 +87,12 @@ const gamePlay = (() => {
             let clickY = currentClick[4]
             playerOne.attackBoard(allShips, enemyGameboardFunction, computerPlayer, computerPlayer, [clickX, clickY])
             this.style.pointerEvents = 'none'
-            computerPlayer.attackBoard(allShips, playerGameboardFunction, computerPlayer, playerOne, computerPlayer.computerMove())
+            computerPlayer.attackBoard(allShips, playerGameboardFunction, computerPlayer, playerOne, computerPlayer.makeRandomMove())
             endGame()
         }))
     })
 
-      document.addEventListener('DOMContentLoaded', (event) => {
+    document.addEventListener('DOMContentLoaded', (event) => {
         let previousDiv;
         let currentShip;
         function handleDragStart(ev) {
@@ -135,24 +137,20 @@ const gamePlay = (() => {
                 let coordY = parseInt(newCoord[4])
                 let shipName = allShips.find(element => element.myName === newData)
                 let length = shipName.getLength();
-                console.log(previousDiv)
                 let oldX = parseInt(previousDiv[1])
                 let oldY = parseInt(previousDiv[4])
                 if (shipName.getDirection() == 'horizontal') {
                     for (let i = 0; i < length; i++) {
                         let oldDiv = document.querySelectorAll(`[data-id="[${oldX}, ${oldY}]"]`)[0]
-                        console.log(oldDiv.getAttribute('occupied'))
                         oldDiv.setAttribute('occupied', 'empty')
                         oldDiv.draggable = false;
                         oldDiv.className = 'divplayer'
                         oldY++
-                        console.log([oldX, oldY])
                     }
                 } else {
                     for (let i = 0; i < length; i++) {
                         let oldDiv = document.querySelectorAll(`[data-id="[${oldX}, ${oldY}]"]`)[0]
                         oldDiv.setAttribute('occupied', 'empty')
-                        console.log(oldDiv.getAttribute('occupied'))
                         oldDiv.draggable = false;
                         oldDiv.className = 'divplayer'
                         oldX++
@@ -162,27 +160,28 @@ const gamePlay = (() => {
         }
     }
 
-        let items = document.querySelectorAll('.divplayer, .divtwo');
-        items.forEach((item) => {
-          item.addEventListener('dragstart', handleDragStart);
-          item.addEventListener('dragover', handleDragOver);
-          item.addEventListener('dragenter', handleDragEnter);
-          item.addEventListener('dragleave', handleDragLeave);
-          item.addEventListener('dragend', handleDragEnd);
-          item.addEventListener('drop', handleDrop);
+    let items = document.querySelectorAll('.divplayer, .divtwo');
+    items.forEach((item) => {
+        item.addEventListener('dragstart', handleDragStart);
+        item.addEventListener('dragover', handleDragOver);
+        item.addEventListener('dragenter', handleDragEnter);
+        item.addEventListener('dragleave', handleDragLeave);
+        item.addEventListener('dragend', handleDragEnd);
+        item.addEventListener('drop', handleDrop);
         });
-      });
-    enemyGameboardFunction.placeShip(enemyCarrier, computerPlayer.computerMove(), enemyCarrier.computerRandomDirection(computerPlayer.randomDirection()), computerPlayer)
-    enemyGameboardFunction.placeShip(enemyBattleship, computerPlayer.computerMove(), enemyBattleship.computerRandomDirection(computerPlayer.randomDirection()), computerPlayer)
-    enemyGameboardFunction.placeShip(enemyCruiser, computerPlayer.computerMove(), enemyCruiser.computerRandomDirection(computerPlayer.randomDirection()), computerPlayer)
-    enemyGameboardFunction.placeShip(enemySubmarine, computerPlayer.computerMove(), enemySubmarine.computerRandomDirection(computerPlayer.randomDirection()), computerPlayer)
-    enemyGameboardFunction.placeShip(enemyDestroyer, computerPlayer.computerMove(), enemyDestroyer.computerRandomDirection(computerPlayer.randomDirection()), computerPlayer)
+    });
+
+    enemyGameboardFunction.placeShip(enemyCarrier, computerPlayer.makeRandomMove(), enemyCarrier.getRandomDirection(computerPlayer.getRandomNumber()), computerPlayer)
+    enemyGameboardFunction.placeShip(enemyBattleship, computerPlayer.makeRandomMove(), enemyBattleship.getRandomDirection(computerPlayer.getRandomNumber()), computerPlayer)
+    enemyGameboardFunction.placeShip(enemyCruiser, computerPlayer.makeRandomMove(), enemyCruiser.getRandomDirection(computerPlayer.getRandomNumber()), computerPlayer)
+    enemyGameboardFunction.placeShip(enemySubmarine, computerPlayer.makeRandomMove(), enemySubmarine.getRandomDirection(computerPlayer.getRandomNumber()), computerPlayer)
+    enemyGameboardFunction.placeShip(enemyDestroyer, computerPlayer.makeRandomMove(), enemyDestroyer.getRandomDirection(computerPlayer.getRandomNumber()), computerPlayer)
     computerPlayer.setPlaceFalse()
-    playerGameboardFunction.placeShip(myCarrier, [5, 3], myCarrier.getDirection(), computerPlayer)
+    playerGameboardFunction.placeShip(myCarrier, [5, 0], myCarrier.getDirection(), computerPlayer)
     playerGameboardFunction.placeShip(myBattleship, [1, 5], myBattleship.getDirection(), computerPlayer)
     playerGameboardFunction.placeShip(myCruiser, [6, 6], myCruiser.getDirection(), computerPlayer)
     playerGameboardFunction.placeShip(mySubmarine, [2, 2], mySubmarine.getDirection(), computerPlayer)
-    playerGameboardFunction.placeShip(myDestroyer, [7, 7], myDestroyer.getDirection(), computerPlayer)
+    playerGameboardFunction.placeShip(myDestroyer, [8, 3], myDestroyer.getDirection(), computerPlayer)
 })();
 
 

@@ -1,15 +1,16 @@
 .body {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-evenly;
     flex-wrap: nowrap;
+    padding: 1em;
 
 }
 .container, .containertwo {
     display: grid;
     grid-template-columns: repeat(10, 2.5em);
     grid-template-rows: repeat(10, 2.5em);
-    padding: 1em;
+    padding: 2em;
 }
 
 .divplayer, .divenemy {
@@ -20,10 +21,6 @@
     height: 2.5em;
     width: 2.5em;
     background-color: aquamarine;
-}
-
-.over {
-    border: 3px dotted black;
 }
 
 .miss {
@@ -69,7 +66,6 @@
 .box {
     display: flex;
     flex-direction: row-reverse;
-    gap: 1em;
 }
 
 .side, .sidetwo {
@@ -102,15 +98,75 @@
     flex-direction: column;
     background-color: white;
     margin: 20% auto; 
-    gap: 1vw;
-    padding: 2vw;
+    gap: 1vh;
+    padding: 2vh;
     width: 30%; 
-    border-radius: 1vw;
+    border-radius: 1vh;
     text-align: center;
-    font-size: 2vw;
+    font-size: 2vh;
 }
 
 .playbutton {
     display: flex;
     justify-content: center;
+}
+
+@media only screen and (min-device-width:320px) and (max-device-width: 480px) {
+    .container, .containertwo {
+        display: grid;
+        grid-template-columns: repeat(10, 1.5vh);
+        grid-template-rows: repeat(10, 1.5vh);
+        padding: 2vw;
+    }
+    .divplayer, .divenemy {
+        display: flex;
+        border: solid black;
+        justify-content: center;
+        cursor: pointer;
+        height: 1.5vh;
+        width: 1.5vh;
+        background-color: aquamarine;
+    }
+    .divtwo {
+        display: flex;
+        border: solid black;
+        justify-content: center;
+        cursor: pointer;
+        height: 1.5vh;
+        width: 1.5vh;
+        background-color: grey;
+    }
+    .side, .sidetwo {
+        margin-top: 1.7vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+    }
+    .playerlabel, .computerlabel {
+        font-size: 1.5vh;
+    }
+    .box {
+        display: flex;
+        font-size: 1vh;
+        flex-direction: row-reverse;
+        gap: 1em;
+    }
+    .miss {
+        border: solid black;
+        font-size: 1.5vh;
+        color: black;
+        height: 1.5vh;
+        width: 1.5vh;
+        text-align: center;
+    }
+    
+    .hit {
+        border: solid black;
+        background-color : red;
+        font-size: 1.5vh;
+        color: black;
+        height: 1.5vh;
+        width: 1.5vh;
+        text-align: center;
+    }
 }

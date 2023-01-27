@@ -1,6 +1,10 @@
 const Gameboard = () => {
     const missedAttacks = []
     const listOfShips = []
+    const boardProperties = {shipHit: false, shipCoordinate: null}
+    const shipHit = () => boardProperties.shipHit
+    const shipCoordinate = () => boardProperties.shipCoordinate
+    const getMissingCoordinates = () => missedAttacks
     const reportLength = () => listOfShips.length
     const showBoard = (ship, coordinates) => {
         for (const coordinate of coordinates) {
@@ -22,7 +26,7 @@ const Gameboard = () => {
                         if (myDiv.getAttribute('occupied') == 'empty') {
                             yChange++;
                         } else {
-                            return placeShip(ship, player.computerMove(), ship.getDirection(), player)
+                            return placeShip(ship, player.makeRandomMove(), ship.getDirection(), player)
                         }
                     }
                     if (listOfShips.includes(ship) == false) {
@@ -36,7 +40,7 @@ const Gameboard = () => {
                         yChange++;
                     }
             } else {
-                return placeShip(ship, player.computerMove(), ship.getDirection(), player)
+                return placeShip(ship, player.makeRandomMove(), ship.getDirection(), player)
             }
             } else if (direction == 'vertical') {
                 if (xChange + (ship.getLength()-1) < 10) {
@@ -45,7 +49,7 @@ const Gameboard = () => {
                         if (myDiv.getAttribute('occupied') == 'empty') {
                             xChange++;
                         } else {
-                            return placeShip(ship, player.computerMove(), ship.getDirection(), player)
+                            return placeShip(ship, player.makeRandomMove(), ship.getDirection(), player)
                         }
                     }
                     if (listOfShips.includes(ship) == false) {
@@ -59,7 +63,7 @@ const Gameboard = () => {
                         xChange++;
                     }
                 } else {
-                    return placeShip(ship, player.computerMove(), ship.getDirection(), player)
+                    return placeShip(ship, player.makeRandomMove(), ship.getDirection(), player)
                 }
             }
         } else if (player.getPlace() !==  true) {
@@ -139,6 +143,7 @@ const Gameboard = () => {
                 theDiv.setAttribute('hit', true)
                 theDiv.className = 'miss'
                 theDiv.textContent = 'X'
+                boardProperties.shipHit = false;
             } else if (theDiv.getAttribute('occupied') !== 'empty' && theDiv.getAttribute('hit') == 'false') {
                 theDiv.setAttribute('hit', true)
                 theDiv.className = 'hit'
@@ -146,8 +151,10 @@ const Gameboard = () => {
                 let shipName = theDiv.getAttribute('occupied')
                 let theShip = array.find(element => element.myName === shipName)
                 theShip.isHit(coordinate)
+                boardProperties.shipHit = true;
+                boardProperties.shipCoordinate = [xChange, yChange]
             } else {
-                return receiveAttack(array, player.computerMove(), player)
+                return receiveAttack(array, player.makeRandomMove(), player)
             }
     }
 }
@@ -159,7 +166,7 @@ const Gameboard = () => {
         return "not all ships sunk"
         }
     }
-    return { placeShip, showBoard, receiveAttack, reportShips, reportLength }
+    return { placeShip, showBoard, receiveAttack, reportShips, reportLength, shipHit, shipCoordinate, getMissingCoordinates }
 }
 
 module.exports = Gameboard

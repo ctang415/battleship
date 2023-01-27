@@ -23,7 +23,6 @@ const Ship = (name, length) => {
     const changeDirection = (coordinate) => {
         let xChange = coordinate[0]
         let yChange = coordinate[1]
-        console.log('math')
         if (shipProperty.direction == 'horizontal') {
             if (xChange + (getLength()-1) < 10) {
                 xChange++
@@ -47,7 +46,6 @@ const Ship = (name, length) => {
                 shipProperty.direction = 'vertical'
                 for (let i = 0; i< getLength(); i++) {
                     const myDiv = document.querySelectorAll(`[data-id="[${xChange}, ${yChange}]"]`)[0]
-                    console.log([xChange, yChange])
                     myDiv.setAttribute('occupied', myName)
                     myDiv.draggable = true;
                     myDiv.className = 'divtwo'
@@ -78,7 +76,6 @@ const Ship = (name, length) => {
                 shipProperty.direction = 'horizontal'
                 for (let i = 0; i < getLength(); i++) {
                     const myDiv = document.querySelectorAll(`[data-id="[${xChange}, ${yChange}]"]`)[0]
-                    console.log([xChange, yChange])
                     myDiv.setAttribute('occupied', myName)
                     myDiv.draggable = true;
                     myDiv.className = 'divtwo'
@@ -88,7 +85,7 @@ const Ship = (name, length) => {
             }
         }
     }
-    const computerRandomDirection = (number) => {
+    const getRandomDirection = (number) => {
         if (number == 0) {
             shipProperty.direction = 'horizontal'
             return getDirection()
@@ -108,7 +105,7 @@ const Ship = (name, length) => {
             return shipProperty.sunk = true;
         }
     }
-    return { myName, getArray, changeCoordinate, isHit, isSunk, changeDirection, getLength, getDirection, computerRandomDirection }
+    return { myName, getArray, changeCoordinate, isHit, isSunk, changeDirection, getLength, getDirection, getRandomDirection }
 }
 
 module.exports = Ship
