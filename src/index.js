@@ -5,6 +5,24 @@ const Gameboard = require('./gameboard')
 const Createboard = require('./dom')
 
 const gamePlay = (() => {
+    const endGame = () => {
+        const enemyDivs = document.querySelectorAll('.divenemy')
+        const overlay = document.querySelector('.overlay')
+        const content = document.querySelector('.content')
+        if (enemyGameboardFunction.reportLength() === 5 && playerGameboardFunction.reportLength() === 5) {
+        if (enemyGameboardFunction.reportShips() == "all ships sunk" || playerGameboardFunction.reportShips() == "all ships sunk") {
+            if (enemyGameboardFunction.reportShips()) {
+                enemyDivs.forEach(div => div.style.pointerEvents = 'none')
+                overlay.style.display = 'inline-block'
+                return content.textContent = 'You win!'
+            } else if (playerGameboardFunction.reportShips()){
+                enemyDivs.forEach(div => div.style.pointerEvents = 'none')
+                overlay.style.display = 'inline-block'
+                return content.textContent = 'You lose!'
+            }
+        }
+    }
+    }
     const enemyGameboardFunction = Gameboard()
     const playerGameboardFunction = Gameboard()
     const playerOne = Player('me')
@@ -39,6 +57,10 @@ const gamePlay = (() => {
     enemyBoard.labelGrid()
     playerBoard.createGrid(10, 10)
     enemyBoard.createGrid(10, 10)
+    const restartButton = document.getElementById('play')
+    restartButton.addEventListener('click', function () {
+        window.location.reload()
+    })
     function directionChange() {
         if (this.getAttribute('occupied') !== 'empty') {
             let shipName = this.getAttribute('occupied')
@@ -67,16 +89,18 @@ const gamePlay = (() => {
             endGame()
         }))
     })
-  
-/*
+
       document.addEventListener('DOMContentLoaded', (event) => {
+        let previousDiv;
         function handleDragStart(ev) {
-            console.log(ev.target)
-            this.classList.remove('divtwo')
+            ev.target.classList.add('divplayer')
+            ev.dataTransfer.setData("data", ev.target.getAttribute('occupied'))
+            previousDiv = ev.target.getAttribute('data-id')
             console.log('one')
         }
 
         function handleDragEnd(ev) {
+            ev.target.classList.add('divplayer')
             console.log('two')
         }
 
@@ -93,16 +117,49 @@ const gamePlay = (() => {
       
         function handleDragLeave(ev) {
             console.log('five')
-          ev.target.classList.remove('divtwo');
+            if (ev.target.getAttribute('occupied') == 'empty') {
+                ev.target.classList.remove('divtwo');
+            }
         }
 
         function handleDrop(ev) {
             ev.preventDefault();
             console.log('six')
-            ev.target.classList.add('divtwo');
-            }
+            if (ev.target.getAttribute('occupied') == 'empty') {
+                let newData = ev.dataTransfer.getData('data')
+                let newCoord = ev.target.getAttribute('data-id')
+                let coordX = parseInt(newCoord[1])
+                let coordY = parseInt(newCoord[4])
+                let shipName = allShips.find(element => element.myName === newData)
+                let length = shipName.getLength();
+                console.log(previousDiv)
+                playerGameboardFunction.placeShip(shipName, [coordX, coordY], shipName.getDirection(), computerPlayer)
+                let oldX = parseInt(previousDiv[1])
+                let oldY = parseInt(previousDiv[4])
+                if (shipName.getDirection() == 'horizontal') {
+                    for (let i = 0; i < length; i++) {
+                        let oldDiv = document.querySelectorAll(`[data-id="[${oldX}, ${oldY}]"]`)[0]
+                        console.log(oldDiv.getAttribute('occupied'))
+                        oldDiv.setAttribute('occupied', 'empty')
+                        oldDiv.draggable = false;
+                        oldDiv.className = 'divplayer'
+                        oldY++
+                        console.log([oldX, oldY])
+                    }
+                } else {
+                    for (let i = 0; i < length; i++) {
+                        let oldDiv = document.querySelectorAll(`[data-id="[${oldX}, ${oldY}]"]`)[0]
+                        oldDiv.setAttribute('occupied', 'empty')
+                        console.log(oldDiv.getAttribute('occupied'))
+                        oldDiv.draggable = false;
+                        oldDiv.className = 'divplayer'
+                        oldX++
+                    }
+                }
+        }
+    }
 
-        let items = document.querySelectorAll('.div');
+        let items = document.querySelectorAll('.divplayer, .divtwo');
         items.forEach((item) => {
           item.addEventListener('dragstart', handleDragStart);
           item.addEventListener('dragover', handleDragOver);
@@ -112,7 +169,6 @@ const gamePlay = (() => {
           item.addEventListener('drop', handleDrop);
         });
       });
-      */
     enemyGameboardFunction.placeShip(enemyCarrier, computerPlayer.computerMove(), enemyCarrier.computerRandomDirection(computerPlayer.randomDirection()), computerPlayer)
     enemyGameboardFunction.placeShip(enemyBattleship, computerPlayer.computerMove(), enemyBattleship.computerRandomDirection(computerPlayer.randomDirection()), computerPlayer)
     enemyGameboardFunction.placeShip(enemyCruiser, computerPlayer.computerMove(), enemyCruiser.computerRandomDirection(computerPlayer.randomDirection()), computerPlayer)
@@ -124,24 +180,6 @@ const gamePlay = (() => {
     playerGameboardFunction.placeShip(myCruiser, [6, 6], myCruiser.getDirection(), computerPlayer)
     playerGameboardFunction.placeShip(mySubmarine, [2, 2], mySubmarine.getDirection(), computerPlayer)
     playerGameboardFunction.placeShip(myDestroyer, [7, 7], myDestroyer.getDirection(), computerPlayer)
-    const endGame = () => {
-        const enemyDivs = document.querySelectorAll('.divenemy')
-        const overlay = document.querySelector('.overlay')
-        const content = document.querySelector('.content')
-        if (enemyGameboardFunction.reportLength() === 5 && playerGameboardFunction.reportLength() === 5) {
-        if (enemyGameboardFunction.reportShips() == "all ships sunk" || playerGameboardFunction.reportShips() == "all ships sunk") {
-            if (enemyGameboardFunction.reportShips()) {
-                enemyDivs.forEach(div => div.style.pointerEvents = 'none')
-                overlay.style.display = 'inline-block'
-                return content.textContent = 'You win!'
-            } else if (playerGameboardFunction.reportShips()){
-                enemyDivs.forEach(div => div.style.pointerEvents = 'none')
-                overlay.style.display = 'inline-block'
-                return content.textContent = 'You lose!'
-            }
-        }
-    }
-    }
 })();
 
 

@@ -100,7 +100,7 @@
 .popup {
     display: flex;
     flex-direction: column;
-    background-color: #fefefe;
+    background-color: white;
     margin: 20% auto; 
     gap: 1vw;
     padding: 2vw;

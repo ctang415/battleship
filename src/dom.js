@@ -47,6 +47,7 @@ const Createboard = () => {
                     div.setAttribute('data-id', `[${i}, ${j}]`)
                     div.setAttribute('occupied', 'empty')
                     div.setAttribute('hit', false)
+                    div.draggable = false
                     container.appendChild(div).className = 'divplayer'
                     }
                 }

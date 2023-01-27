@@ -1,7 +1,6 @@
 const Ship = (name, length) => {
     const myName = name;
-    let direction = 'horizontal'
-    let shipSunk = false;
+    const shipProperty = {direction: 'horizontal', sunk: false}
     const array = [];
     for (let i = 0; i < length; i++) {
         array.push({xy: null, hit:false})
@@ -9,7 +8,7 @@ const Ship = (name, length) => {
     const changeCoordinate = (coordinate) => {
         let xChange = coordinate[0]
         let yChange = coordinate[1]
-        if (direction == 'horizontal') {
+        if (shipProperty.direction == 'horizontal') {
                 for (let i = 0; i < length; i++) {
                     array[i].xy = [xChange, yChange++]
                 }
@@ -20,11 +19,12 @@ const Ship = (name, length) => {
             }
         }
     const getLength = () => length
-    const getDirection = () => direction
+    const getDirection = () => shipProperty.direction
     const changeDirection = (coordinate) => {
         let xChange = coordinate[0]
         let yChange = coordinate[1]
-        if (direction == 'horizontal') {
+        console.log('math')
+        if (shipProperty.direction == 'horizontal') {
             if (xChange + (getLength()-1) < 10) {
                 xChange++
                 for (let i = 1; i < getLength(); i++) {
@@ -37,7 +37,6 @@ const Ship = (name, length) => {
                 }
                 xChange = coordinate[0]
                 for (let i = 0; i < getLength(); i++) {
-                    let coords = [xChange, yChange]
                     const myDiv = document.querySelectorAll(`[data-id="[${xChange}, ${yChange}]"]`)[0]
                     myDiv.setAttribute('occupied', 'empty')
                     myDiv.draggable = false;
@@ -45,9 +44,10 @@ const Ship = (name, length) => {
                     yChange++
                 }
                 yChange = coordinate[1]
-                direction = 'vertical'
+                shipProperty.direction = 'vertical'
                 for (let i = 0; i< getLength(); i++) {
                     const myDiv = document.querySelectorAll(`[data-id="[${xChange}, ${yChange}]"]`)[0]
+                    console.log([xChange, yChange])
                     myDiv.setAttribute('occupied', myName)
                     myDiv.draggable = true;
                     myDiv.className = 'divtwo'
@@ -75,9 +75,10 @@ const Ship = (name, length) => {
                     xChange++
                 }
                 xChange = coordinate[0]
-                direction = 'horizontal'
+                shipProperty.direction = 'horizontal'
                 for (let i = 0; i < getLength(); i++) {
                     const myDiv = document.querySelectorAll(`[data-id="[${xChange}, ${yChange}]"]`)[0]
+                    console.log([xChange, yChange])
                     myDiv.setAttribute('occupied', myName)
                     myDiv.draggable = true;
                     myDiv.className = 'divtwo'
@@ -89,25 +90,22 @@ const Ship = (name, length) => {
     }
     const computerRandomDirection = (number) => {
         if (number == 0) {
-            direction = 'horizontal'
+            shipProperty.direction = 'horizontal'
             return getDirection()
         } else {
-            direction = 'vertical'
+            shipProperty.direction = 'vertical'
             return getDirection()
         }
     }
     const getArray = () => array
     const isHit = (coordinate) => {
-        console.log(coordinate)
-        console.log(array)
         let shipPart = array.findIndex(element => (element.xy.toString() == coordinate))
-        console.log(shipPart)
         return array[shipPart].hit = true;
     }
     const isSunk = () => {
         const isTrue = (element) => element.hit == true
         if (array.every(isTrue)) {
-            return shipSunk = true;
+            return shipProperty.sunk = true;
         }
     }
     return { myName, getArray, changeCoordinate, isHit, isSunk, changeDirection, getLength, getDirection, computerRandomDirection }
