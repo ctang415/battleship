@@ -57,8 +57,6 @@ const gamePlay = (() => {
     enemyBoard.labelGrid()
     playerBoard.createGrid(10, 10)
     enemyBoard.createGrid(10, 10)
-    const playerScore = document.querySelector('.playerscore')
-    const enemyScore = document.querySelector('.enemyscore')
     const restartButton = document.getElementById('play')
     restartButton.addEventListener('click', function () {
         window.location.reload()
@@ -95,6 +93,7 @@ const gamePlay = (() => {
     document.addEventListener('DOMContentLoaded', (event) => {
         let previousDiv;
         let currentShip;
+
         function handleDragStart(ev) {
             ev.target.classList.add('divplayer')
             ev.dataTransfer.setData("data", ev.target.getAttribute('occupied'))
@@ -129,6 +128,7 @@ const gamePlay = (() => {
 
         function handleDrop(ev) {
             ev.preventDefault();
+            ev.target.classList.remove('divtwo')
             console.log('six')
             if (ev.target.getAttribute('occupied') == 'empty' || ev.target.getAttribute('occupied') == currentShip.myName) {
                 let newData = ev.dataTransfer.getData('data')
@@ -159,8 +159,49 @@ const gamePlay = (() => {
                 playerGameboardFunction.placeShip(shipName, [coordX, coordY], shipName.getDirection(), computerPlayer)
         }
     }
+        let ship;
+        let moveOffsetX
+        let moveOffsetY
 
-    let items = document.querySelectorAll('.divplayer, .divtwo');
+        /*function handleTouchStart(ev) {
+            console.log('hello')
+            ship = ev.target
+            console.log(ship)
+            const touch = ev.targetTouches[0]
+            console.log(touch)
+            moveOffsetX = ship.offsetLeft - touch.pageX;
+            moveOffsetY = ship.offsetTop - touch.pageY;
+
+        }
+    */
+        function handleTouchMove(ev) {
+            console.log('two')
+            ev.preventDefault();
+            let ship = ev.target
+            const touch = ev.targetTouches[0]
+            ship.style.left = touch.pageX + 'px'
+            ship.style.top = touch.pageY + 'px'
+        }
+    
+        function handleTouchEnd(ev) {
+            let ship = ev.target
+            let x = parseInt(ship.style.left)
+            let y = parseInt(ship.style.top)
+        }
+
+        function handleTouchCancel(ev) {
+
+        }
+        
+    const touchItems = document.querySelectorAll('.divtwo')
+    touchItems.forEach((item) => {
+        
+        item.addEventListener('touchmove', handleTouchMove);
+        item.addEventListener('touchend', handleTouchEnd);
+       
+    })
+
+    const items = document.querySelectorAll('.divplayer, .divtwo');
     items.forEach((item) => {
         item.addEventListener('dragstart', handleDragStart);
         item.addEventListener('dragover', handleDragOver);
@@ -170,6 +211,7 @@ const gamePlay = (() => {
         item.addEventListener('drop', handleDrop);
         });
     });
+
 
     enemyGameboardFunction.placeShip(enemyCarrier, computerPlayer.makeRandomMove(), enemyCarrier.getRandomDirection(computerPlayer.getRandomNumber()), computerPlayer)
     enemyGameboardFunction.placeShip(enemyBattleship, computerPlayer.makeRandomMove(), enemyBattleship.getRandomDirection(computerPlayer.getRandomNumber()), computerPlayer)

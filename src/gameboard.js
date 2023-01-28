@@ -74,7 +74,7 @@ const Gameboard = () => {
                         if (myDiv.getAttribute('occupied') == 'empty' || myDiv.getAttribute('occupied') == ship.shipName) {
                             yChange++
                         } else {
-                            return console.log("choose a different spot")
+                            return placeShip(ship, ship.getArray()[0].xy, ship.getDirection(), player)
                         }
                     }
                     if (listOfShips.includes(ship) == false) {
@@ -90,6 +90,9 @@ const Gameboard = () => {
                             yChange++;
                         }
                     }
+                    else {
+                        return placeShip(ship, ship.getArray()[0].xy, ship.getDirection(), player)
+                     }
             } else if (direction == 'vertical') {
                 if (xChange + (ship.getLength()-1) < 10) {
                     for (let i = 0; i < ship.getLength(); i++) {
@@ -97,7 +100,7 @@ const Gameboard = () => {
                         if (myDiv.getAttribute('occupied') == 'empty' || myDiv.getAttribute('occupied') == ship.shipName) {
                             xChange++
                         } else {
-                            return console.log("pick a new spot")
+                            return placeShip(ship, ship.getArray()[0].xy, ship.getDirection(), player)
                         }
                     }
                     if (listOfShips.includes(ship) == false) {
@@ -112,6 +115,9 @@ const Gameboard = () => {
                             theDiv.className = 'divtwo'
                             xChange++;
                         }
+                 }
+                 else {
+                    return placeShip(ship, ship.getArray()[0].xy, ship.getDirection(), player)
                  }
             }
         }
