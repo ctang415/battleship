@@ -10,19 +10,20 @@ const gamePlay = (() => {
         const overlay = document.querySelector('.overlay')
         const content = document.querySelector('.content')
         if (enemyGameboardFunction.reportLength() === 5 && playerGameboardFunction.reportLength() === 5) {
-        if (enemyGameboardFunction.reportShips() == "all ships sunk" || playerGameboardFunction.reportShips() == "all ships sunk") {
-            if (enemyGameboardFunction.reportShips() == 'all ships sunk') {
-                enemyDivs.forEach(div => div.style.pointerEvents = 'none')
-                overlay.style.display = 'inline-block'
-                return content.textContent = 'You win!'
-            } else if (playerGameboardFunction.reportShips() == 'all ships sunk'){
-                enemyDivs.forEach(div => div.style.pointerEvents = 'none')
-                overlay.style.display = 'inline-block'
-                return content.textContent = 'You lose!'
+            if (enemyGameboardFunction.reportShips() == "all ships sunk" || playerGameboardFunction.reportShips() == "all ships sunk") {
+                if (enemyGameboardFunction.reportShips() == 'all ships sunk') {
+                    enemyDivs.forEach(div => div.style.pointerEvents = 'none')
+                    overlay.style.display = 'inline-block'
+                    return content.textContent = 'You win!'
+                } else if (playerGameboardFunction.reportShips() == 'all ships sunk'){
+                    enemyDivs.forEach(div => div.style.pointerEvents = 'none')
+                    overlay.style.display = 'inline-block'
+                    return content.textContent = 'You lose!'
+                }
             }
         }
     }
-    }
+    
     const enemyGameboardFunction = Gameboard()
     const playerGameboardFunction = Gameboard()
     const playerOne = Player('me')
@@ -94,12 +95,10 @@ const gamePlay = (() => {
                     hitX = parseInt(hitSpot[0])
                     hitY = parseInt(hitSpot[1])
                     hitY = hitY + 1
-                    console.log('true')
                 } else {
                     const move = computerPlayer.makeRandomMove()
                     hitX = parseInt(move[0])
                     hitY = parseInt(move[1])
-                    console.log('false')
                 }
             } else {
                 if (playerGameboardFunction.shipHit() == true) {
@@ -115,7 +114,7 @@ const gamePlay = (() => {
         }))
     })
 
-    document.addEventListener('DOMContentLoaded', (event) => {
+    document.addEventListener('DOMContentLoaded', () => {
         let previousDiv;
         let currentShip;
 
@@ -125,28 +124,22 @@ const gamePlay = (() => {
             let newData = ev.dataTransfer.getData('data')
             currentShip = allShips.find(element => element.myName === newData)
             previousDiv = ev.target.getAttribute('data-id')
-            console.log('one')
         }
 
         function handleDragEnd(ev) {
             ev.target.classList.add('divplayer')
-            console.log('two')
         }
 
         function handleDragOver(ev) {
           ev.preventDefault();
-          console.log('three')
           ev.target.classList.add('divtwo');
         }
       
         function handleDragEnter(ev) {
-            console.log('four')
             ev.target.classList.add('divtwo');
-
         }
       
         function handleDragLeave(ev) {
-            console.log('five')
             if (ev.target.getAttribute('occupied') == 'empty') {
                 ev.target.classList.remove('divtwo');
             }
@@ -154,7 +147,6 @@ const gamePlay = (() => {
 
         function handleDrop(ev) {
             ev.preventDefault();
-            console.log('six')
             if (ev.target.getAttribute('occupied') == 'empty' || ev.target.getAttribute('occupied') == currentShip.myName) {
                 ev.target.classList.remove('divtwo')
                 let newData = ev.dataTransfer.getData('data')
@@ -196,7 +188,6 @@ const gamePlay = (() => {
         item.addEventListener('drop', handleDrop);
         });
     });
-
 
     enemyGameboardFunction.placeShip(enemyCarrier, computerPlayer.makeRandomMove(), enemyCarrier.getRandomDirection(computerPlayer.getRandomNumber()), computerPlayer)
     enemyGameboardFunction.placeShip(enemyBattleship, computerPlayer.makeRandomMove(), enemyBattleship.getRandomDirection(computerPlayer.getRandomNumber()), computerPlayer)
