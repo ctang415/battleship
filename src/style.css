@@ -10,7 +10,7 @@
     display: grid;
     grid-template-columns: repeat(10, 2.5vw);
     grid-template-rows: repeat(10, 2.5vw);
-    padding: 1.5vw;
+    padding: 2vw;
 }
 
 .divplayer, .divenemy {
@@ -26,6 +26,7 @@
 .miss {
     border: solid black;
     font-size: 240%;
+    line-height: 100%;
     color: black;
     text-align: center;
 }
@@ -35,6 +36,7 @@
     background-color : red;
     font-size: 240%;
     color: black;
+    line-height: 100%;
     text-align: center;
 }
 
@@ -65,7 +67,9 @@
 
 .box {
     display: flex;
+    font-size: 2.0vh;
     flex-direction: row-reverse;
+    gap: 1vh;
 }
 
 .side, .sidetwo {
@@ -173,5 +177,17 @@
         height: 2.4vh;
         width: 2.4vh;
         text-align: center;
+    }
+    .popup {
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        margin: 50% auto; 
+        gap: 1vh;
+        padding: 2vh;
+        width: 30%; 
+        border-radius: 1vh;
+        text-align: center;
+        font-size: 2vh;
     }
 }
