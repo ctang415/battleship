@@ -23,7 +23,7 @@ const gamePlay = (() => {
             }
         }
     }
-
+    
     const enemyGameboardFunction = Gameboard()
     const playerGameboardFunction = Gameboard()
     const playerOne = Player('me')
