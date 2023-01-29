@@ -109,10 +109,7 @@ const gamePlay = (() => {
                     hitY = parseInt(hitSpot[1])
                     hitY = hitY + 1
                     computerPlayer.attackBoard(allShips, playerGameboardFunction, computerPlayer, playerOne, [hitX, hitY])
-                } else {
-                    computerPlayer.attackBoard(allShips, playerGameboardFunction, computerPlayer, playerOne, computerPlayer.makeRandomMove())
-
-                }         
+                }     
             }
             endGame()
         }))
