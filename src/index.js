@@ -11,11 +11,11 @@ const gamePlay = (() => {
         const content = document.querySelector('.content')
         if (enemyGameboardFunction.reportLength() === 5 && playerGameboardFunction.reportLength() === 5) {
         if (enemyGameboardFunction.reportShips() == "all ships sunk" || playerGameboardFunction.reportShips() == "all ships sunk") {
-            if (enemyGameboardFunction.reportShips()) {
+            if (enemyGameboardFunction.reportShips() == 'all ships sunk') {
                 enemyDivs.forEach(div => div.style.pointerEvents = 'none')
                 overlay.style.display = 'inline-block'
                 return content.textContent = 'You win!'
-            } else if (playerGameboardFunction.reportShips()){
+            } else if (playerGameboardFunction.reportShips() == 'all ships sunk'){
                 enemyDivs.forEach(div => div.style.pointerEvents = 'none')
                 overlay.style.display = 'inline-block'
                 return content.textContent = 'You lose!'
@@ -73,7 +73,8 @@ const gamePlay = (() => {
     }
     const playerDivs = document.querySelectorAll('.divplayer');
     playerDivs.forEach(div => div.addEventListener('click', directionChange, true))
-
+    let hitX;
+    let hitY;
     const button = document.getElementById('button')
     button.addEventListener('click', function (){
         playerDivs.forEach(div => div.style.pointerEvents = 'none')
@@ -85,7 +86,34 @@ const gamePlay = (() => {
             let clickY = currentClick[4]
             playerOne.attackBoard(allShips, enemyGameboardFunction, computerPlayer, computerPlayer, [clickX, clickY])
             this.style.pointerEvents = 'none'
-            computerPlayer.attackBoard(allShips, playerGameboardFunction, computerPlayer, playerOne, computerPlayer.makeRandomMove())
+            if (playerGameboardFunction.shipHit() == false) {
+                computerPlayer.attackBoard(allShips, playerGameboardFunction, computerPlayer, playerOne, computerPlayer.makeRandomMove())
+                if (playerGameboardFunction.shipHit() == true) {
+                    const hitSpot = playerGameboardFunction.shipCoordinate()
+                    console.log(hitSpot)
+                    hitX = parseInt(hitSpot[0])
+                    hitY = parseInt(hitSpot[1])
+                    hitY = hitY + 1
+                    console.log('true')
+                } else {
+                    const move = computerPlayer.makeRandomMove()
+                    hitX = parseInt(move[0])
+                    hitY = parseInt(move[1])
+                    console.log('false')
+                }
+            } else {
+                if (playerGameboardFunction.shipHit() == true) {
+                    const hitSpot = playerGameboardFunction.shipCoordinate()
+                    console.log(hitSpot)
+                    hitX = parseInt(hitSpot[0])
+                    hitY = parseInt(hitSpot[1])
+                    hitY = hitY + 1
+                    computerPlayer.attackBoard(allShips, playerGameboardFunction, computerPlayer, playerOne, [hitX, hitY])
+                } else {
+                    computerPlayer.attackBoard(allShips, playerGameboardFunction, computerPlayer, playerOne, computerPlayer.makeRandomMove())
+
+                }         
+            }
             endGame()
         }))
     })
@@ -117,6 +145,7 @@ const gamePlay = (() => {
         function handleDragEnter(ev) {
             console.log('four')
             ev.target.classList.add('divtwo');
+
         }
       
         function handleDragLeave(ev) {
@@ -128,9 +157,9 @@ const gamePlay = (() => {
 
         function handleDrop(ev) {
             ev.preventDefault();
-            ev.target.classList.remove('divtwo')
             console.log('six')
             if (ev.target.getAttribute('occupied') == 'empty' || ev.target.getAttribute('occupied') == currentShip.myName) {
+                ev.target.classList.remove('divtwo')
                 let newData = ev.dataTransfer.getData('data')
                 let newCoord = ev.target.getAttribute('data-id')
                 let coordX = parseInt(newCoord[1])
@@ -159,48 +188,7 @@ const gamePlay = (() => {
                 playerGameboardFunction.placeShip(shipName, [coordX, coordY], shipName.getDirection(), computerPlayer)
         }
     }
-        let ship;
-        let moveOffsetX
-        let moveOffsetY
-
-        /*function handleTouchStart(ev) {
-            console.log('hello')
-            ship = ev.target
-            console.log(ship)
-            const touch = ev.targetTouches[0]
-            console.log(touch)
-            moveOffsetX = ship.offsetLeft - touch.pageX;
-            moveOffsetY = ship.offsetTop - touch.pageY;
-
-        }
-    */
-        function handleTouchMove(ev) {
-            console.log('two')
-            ev.preventDefault();
-            let ship = ev.target
-            const touch = ev.targetTouches[0]
-            ship.style.left = touch.pageX + 'px'
-            ship.style.top = touch.pageY + 'px'
-        }
-    
-        function handleTouchEnd(ev) {
-            let ship = ev.target
-            let x = parseInt(ship.style.left)
-            let y = parseInt(ship.style.top)
-        }
-
-        function handleTouchCancel(ev) {
-
-        }
-        
-    const touchItems = document.querySelectorAll('.divtwo')
-    touchItems.forEach((item) => {
-        
-        item.addEventListener('touchmove', handleTouchMove);
-        item.addEventListener('touchend', handleTouchEnd);
-       
-    })
-
+ 
     const items = document.querySelectorAll('.divplayer, .divtwo');
     items.forEach((item) => {
         item.addEventListener('dragstart', handleDragStart);

@@ -4,7 +4,7 @@ const Gameboard = () => {
     const boardProperties = {shipHit: false, shipCoordinate: null}
     const shipHit = () => boardProperties.shipHit
     const shipCoordinate = () => boardProperties.shipCoordinate
-    const getMissingCoordinates = () => missedAttacks
+    const getMissingCoordinates = () => missedAttacks.length
     const reportLength = () => listOfShips.length
     const showBoard = (ship, coordinates) => {
         for (const coordinate of coordinates) {
