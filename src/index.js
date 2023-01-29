@@ -23,7 +23,7 @@ const gamePlay = (() => {
             }
         }
     }
-    
+
     const enemyGameboardFunction = Gameboard()
     const playerGameboardFunction = Gameboard()
     const playerOne = Player('me')
@@ -94,7 +94,11 @@ const gamePlay = (() => {
                     console.log(hitSpot)
                     hitX = parseInt(hitSpot[0])
                     hitY = parseInt(hitSpot[1])
-                    hitY = hitY + 1
+                    if ((hitY + 1) < 10) {
+                        hitY = hitY + 1
+                    } else {
+                        hitY = hitY - 1
+                    }
                 } else {
                     const move = computerPlayer.makeRandomMove()
                     hitX = parseInt(move[0])
@@ -106,7 +110,11 @@ const gamePlay = (() => {
                     console.log(hitSpot)
                     hitX = parseInt(hitSpot[0])
                     hitY = parseInt(hitSpot[1])
-                    hitY = hitY + 1
+                    if ((hitY + 1) < 10) {
+                        hitY = hitY + 1
+                    } else {
+                        hitY = hitY - 1
+                    }
                     computerPlayer.attackBoard(allShips, playerGameboardFunction, computerPlayer, playerOne, [hitX, hitY])
                 }     
             }
