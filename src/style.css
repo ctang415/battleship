@@ -3,14 +3,14 @@
     flex-direction: row;
     justify-content: space-evenly;
     flex-wrap: nowrap;
-    padding: 1em;
+    padding: 1vw;
 
 }
 .container, .containertwo {
     display: grid;
-    grid-template-columns: repeat(10, 2.5em);
-    grid-template-rows: repeat(10, 2.5em);
-    padding: 2em;
+    grid-template-columns: repeat(10, 2.5vw);
+    grid-template-rows: repeat(10, 2.5vw);
+    padding: 1.5vw;
 }
 
 .divplayer, .divenemy {
@@ -18,8 +18,8 @@
     border: solid black;
     justify-content: center;
     cursor: pointer;
-    height: 2.5em;
-    width: 2.5em;
+    height: 2.5vw;
+    width: 2.5vw;
     background-color: aquamarine;
 }
 
@@ -43,13 +43,13 @@
     border: solid black;
     justify-content: center;
     cursor: pointer;
-    height: 2.5em;
-    width: 2.5em;
+    height: 2.5vw;
+    width: 2.5vw;
     background-color: grey;
 }
 
 .playerlabel, .computerlabel {
-    font-size: 2em;
+    font-size: 2vw;
 }
 
 .player, .computer {
@@ -69,7 +69,7 @@
 }
 
 .side, .sidetwo {
-    margin-top: 2.7em;
+    margin-top: 2.7vw;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -111,20 +111,25 @@
     justify-content: center;
 }
 
-@media only screen and (min-device-width:320px) and (max-device-width: 480px) {
+@media only screen and (min-device-width:280px) and (max-device-width: 950px) {
+    .body {
+        display: flex;
+        flex-direction: column;
+        gap: 2em;
+    }
     .container, .containertwo {
         display: grid;
-        grid-template-columns: repeat(10, 1.5vh);
-        grid-template-rows: repeat(10, 1.5vh);
-        padding: 2vw;
+        grid-template-columns: repeat(10, 2.4vh);
+        grid-template-rows: repeat(10, 2.4vh);
+        padding: 1.5vw;
     }
     .divplayer, .divenemy {
         display: flex;
         border: solid black;
         justify-content: center;
         cursor: pointer;
-        height: 1.5vh;
-        width: 1.5vh;
+        height: 2.4vh;
+        width: 2.4vh;
         background-color: aquamarine;
     }
     .divtwo {
@@ -132,41 +137,41 @@
         border: solid black;
         justify-content: center;
         cursor: pointer;
-        height: 1.5vh;
-        width: 1.5vh;
+        height: 2.4vh;
+        width: 2.4vh;
         background-color: grey;
     }
     .side, .sidetwo {
-        margin-top: 1.7vh;
+        margin-top: 2.5vh;
         display: flex;
         flex-direction: column;
         justify-content: space-evenly;
     }
     .playerlabel, .computerlabel {
-        font-size: 1.5vh;
+        font-size: 2.3vh;
     }
     .box {
         display: flex;
-        font-size: 1vh;
+        font-size: 2.0vh;
         flex-direction: row-reverse;
         gap: 1em;
     }
     .miss {
         border: solid black;
-        font-size: 1.5vh;
+        font-size: 2.4vh;
         color: black;
-        height: 1.5vh;
-        width: 1.5vh;
+        height: 2.4vh;
+        width: 2.4vh;
         text-align: center;
     }
     
     .hit {
         border: solid black;
         background-color : red;
-        font-size: 1.5vh;
+        font-size: 2.4vh;
         color: black;
-        height: 1.5vh;
-        width: 1.5vh;
+        height: 2.4vh;
+        width: 2.4vh;
         text-align: center;
     }
 }
