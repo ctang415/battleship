@@ -1,9 +1,12 @@
 {
   "name": "battleship",
   "version": "1.0.0",
+  "homepage": "https://ctang415.github.io/battleship",
   "description": "",
   "main": "index.js",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "test": "jest",
     "build": "webpack --config webpack.config.js"
   },
@@ -17,7 +20,6 @@
   "bugs": {
     "url": "https://github.com/ctang415/battleship/issues"
   },
-  "homepage": "https://github.com/ctang415/battleship#readme",
   "devDependencies": {
     "@babel/core": "^7.20.12",
     "@babel/preset-env": "^7.20.2",
@@ -29,5 +31,8 @@
     "style-loader": "^3.3.1",
     "webpack": "^5.75.0",
     "webpack-cli": "^5.0.0"
+  },
+  "dependencies": {
+    "gh-pages": "^5.0.0"
   }
 }
