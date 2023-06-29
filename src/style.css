@@ -8,9 +8,9 @@
 }
 .container, .containertwo {
     display: grid;
-    grid-template-columns: repeat(10, 2.5vw);
-    grid-template-rows: repeat(10, 2.5vw);
-    padding: 2vw;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+    padding: 1vw;
 }
 
 .divplayer, .divenemy {
@@ -18,23 +18,28 @@
     border: solid black;
     justify-content: center;
     cursor: pointer;
-    height: 2.5vw;
-    width: 2.5vw;
+    padding: 1em;
     background-color: aquamarine;
 }
 
 .miss {
-    border: solid black;
-    font-size: 240%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: solid 1px #000000;
+    font-size: 1.5em;
     line-height: 100%;
     color: black;
     text-align: center;
 }
 
 .hit {
-    border: solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: solid 1px black;
     background-color : red;
-    font-size: 240%;
+    font-size: 1.5em;
     color: black;
     line-height: 100%;
     text-align: center;
@@ -45,8 +50,6 @@
     border: solid black;
     justify-content: center;
     cursor: pointer;
-    height: 2.5vw;
-    width: 2.5vw;
     background-color: grey;
 }
 
@@ -67,7 +70,6 @@
 
 .box {
     display: flex;
-    font-size: 2.0vh;
     flex-direction: row-reverse;
     gap: 1vh;
 }
@@ -123,8 +125,8 @@
     }
     .container, .containertwo {
         display: grid;
-        grid-template-columns: repeat(10, 2.4vh);
-        grid-template-rows: repeat(10, 2.4vh);
+        grid-template-columns: repeat(10, 1fr);
+        grid-template-rows: repeat(10, 1fr);
         padding: 1.5vw;
     }
     .divplayer, .divenemy {
@@ -132,8 +134,7 @@
         border: solid black;
         justify-content: center;
         cursor: pointer;
-        height: 2.4vh;
-        width: 2.4vh;
+        padding: 0.5em;
         background-color: aquamarine;
     }
     .divtwo {
@@ -141,8 +142,6 @@
         border: solid black;
         justify-content: center;
         cursor: pointer;
-        height: 2.4vh;
-        width: 2.4vh;
         background-color: grey;
     }
     .side, .sidetwo {
@@ -156,26 +155,23 @@
     }
     .box {
         display: flex;
-        font-size: 2.0vh;
         flex-direction: row-reverse;
         gap: 1em;
     }
     .miss {
         border: solid black;
-        font-size: 2.4vh;
+        font-size: 1.8vh;
+        line-height: 100%;
         color: black;
-        height: 2.4vh;
-        width: 2.4vh;
         text-align: center;
     }
     
     .hit {
         border: solid black;
         background-color : red;
-        font-size: 2.4vh;
+        font-size: 1.8vh;
+        line-height: 100%;
         color: black;
-        height: 2.4vh;
-        width: 2.4vh;
         text-align: center;
     }
     .popup {
