@@ -77,46 +77,76 @@ const gamePlay = (() => {
     let hitX;
     let hitY;
     const button = document.getElementById('button')
+    let moveset = [ [0, +1], [0, -1], [+1, 0], [-1, 0] ]
+    let queue = []
+    let hitTarget;
     button.addEventListener('click', function (){
         playerDivs.forEach(div => div.style.pointerEvents = 'none')
         const enemyDivs = document.querySelectorAll('.divenemy')
         button.style.display = 'none'
         enemyDivs.forEach(div => div.addEventListener('click', function() {
+            // grabs player clicked div and disables it
             let currentClick = this.getAttribute('data-id')
             let clickX = currentClick[1]
             let clickY = currentClick[4]
+            // playerOne attacks
             playerOne.attackBoard(allShips, enemyGameboardFunction, computerPlayer, computerPlayer, [clickX, clickY])
             this.style.pointerEvents = 'none'
-            if (playerGameboardFunction.shipHit() == false) {
-                computerPlayer.attackBoard(allShips, playerGameboardFunction, computerPlayer, playerOne, computerPlayer.makeRandomMove())
-                if (playerGameboardFunction.shipHit() == true) {
-                    const hitSpot = playerGameboardFunction.shipCoordinate()
-                    console.log(hitSpot)
-                    hitX = parseInt(hitSpot[0])
-                    hitY = parseInt(hitSpot[1])
-                    if ((hitY + 1) < 10) {
-                        hitY = hitY + 1
-                    } else {
-                        hitY = hitY - 1
+            // if queue is not empty, we run through queue first
+           /* if (queue.length !== 0 && playerGameboardFunction.shipHit() === true) { */
+           if (queue.length === 0 && playerGameboardFunction.shipHit() === true) {
+                const hitSpot = playerGameboardFunction.shipCoordinate()
+                hitX = parseInt(hitSpot[0])
+                hitY = parseInt(hitSpot[1])
+                hitTarget = [ hitX, hitY ]
+                for (let x = 0; x < moveset.length; x++) {
+                    if ( ( -1 < moveset[x][0] + hitX && moveset[x][0] + hitX < 10 ) && 
+                    ( -1 < moveset[x][1] + hitY && moveset[x][1] + hitY < 10  )) {
+                        let newY = moveset[x][1] + hitY 
+                        let newX = moveset[x][0] + hitX 
+                        // store this value to check which direction to traverse in
+                        queue.push( [newX, newY] )
                     }
-                } else {
-                    const move = computerPlayer.makeRandomMove()
-                    hitX = parseInt(move[0])
-                    hitY = parseInt(move[1])
                 }
-            } else {
-                if (playerGameboardFunction.shipHit() == true) {
-                    const hitSpot = playerGameboardFunction.shipCoordinate()
-                    console.log(hitSpot)
-                    hitX = parseInt(hitSpot[0])
-                    hitY = parseInt(hitSpot[1])
-                    if ((hitY + 1) < 10) {
-                        hitY = hitY + 1
-                    } else {
-                        hitY = hitY - 1
-                    }
-                    computerPlayer.attackBoard(allShips, playerGameboardFunction, computerPlayer, playerOne, [hitX, hitY])
-                }     
+                let x = queue.pop()
+                computerPlayer.attackBoard(allShips, playerGameboardFunction, computerPlayer, playerOne, x)
+            } else if (queue.length !== 0 && playerGameboardFunction.shipHit() === false) {
+                let x = queue.pop()
+                computerPlayer.attackBoard(allShips, playerGameboardFunction, computerPlayer, playerOne, x)
+            }
+            // land a hit after an initial one, we store new moves into queue
+            else if ( (playerGameboardFunction.shipHit() === true && queue.length !== 0 )) {
+            const hitSpot = playerGameboardFunction.shipCoordinate()
+            hitX = parseInt(hitSpot[0])
+            hitY = parseInt(hitSpot[1])
+            hitTarget = [hitX, hitY]
+            if ( hitTarget[0] - hitX === 0) {
+                let x = [ [0, +1], [0, -1], [0, +2], [0, -2] ]
+                for ( let i = 0; i < x.length; i++) {
+                if ( ( -1 < hitTarget[1] + x[i][1] && hitTarget[1] + x[i][1] < 10 )) {
+                    let newY = x[i][1] + hitTarget[1] 
+                    let newX = x[i][0] + hitTarget[0]
+                    queue.push([newX, newY])
+                }
+                }
+            let y = queue.pop()
+                computerPlayer.attackBoard(allShips, playerGameboardFunction, computerPlayer, playerOne, y) 
+            } else if (hitTarget[1] - hitY === 0) {
+                let x = [ [+1, 0], [-1, 0], [+2, 0], [-2, 0] ]
+                for (let i = 0; i < x.length; i++) {
+                if ( (-1 < hitTarget[0] + x[i][0] && hitTarget[0] + x[i][0] < 10 ) ) {
+                    let newY = x[i][1] + hitTarget[1]
+                    let newX = x[i][0] + hitTarget[0]
+                    queue.push([newX, newY])
+                }
+            }
+            let y = queue.pop()
+            computerPlayer.attackBoard(allShips, playerGameboardFunction, computerPlayer, playerOne, y)
+            }
+        }
+             else {
+                computerPlayer.attackBoard(allShips, playerGameboardFunction, computerPlayer, playerOne, computerPlayer.makeRandomMove())
+            // if computer lands an attack while queue is empty, store potential moves into the queue
             }
             endGame()
         }))

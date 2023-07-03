@@ -9,13 +9,16 @@
 .container, .containertwo {
     display: grid;
     grid-template-columns: repeat(10, 1fr);
-    grid-template-rows: repeat(10, 1fr);
     padding: 1vw;
+}
+
+.container::before, .containertwo::before, .container::after, .containertwo::after {
+    padding-bottom: 100%;
 }
 
 .divplayer, .divenemy {
     display: flex;
-    border: solid black;
+    border: solid 1px black;
     justify-content: center;
     cursor: pointer;
     padding: 1em;
@@ -27,9 +30,8 @@
     align-items: center;
     justify-content: center;
     border: solid 1px #000000;
-    font-size: 1.5em;
-    line-height: 100%;
     color: black;
+    padding: 0.5em;
     text-align: center;
 }
 
@@ -37,11 +39,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 0.5em;
     border: solid 1px black;
     background-color : red;
-    font-size: 1.5em;
     color: black;
-    line-height: 100%;
     text-align: center;
 }
 
@@ -49,6 +50,7 @@
     display: flex;
     border: solid black;
     justify-content: center;
+    padding: 1em;
     cursor: pointer;
     background-color: grey;
 }
@@ -126,9 +128,13 @@
     .container, .containertwo {
         display: grid;
         grid-template-columns: repeat(10, 1fr);
-        grid-template-rows: repeat(10, 1fr);
         padding: 1.5vw;
     }
+
+    .container::after, .containertwo::after {
+        padding-bottom: 100%;
+    }
+
     .divplayer, .divenemy {
         display: flex;
         border: solid black;

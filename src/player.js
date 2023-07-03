@@ -1,11 +1,20 @@
 const Player = (name) => {
     const myName = name
-    const playerProperties = {myTurn: true, canPlace: true}
+    const playerProperties = {myTurn: true, canPlace: true, shipSunk: false, 
+        moveSet: [ [0, +1], [0, -1], [+1 , 0], [-1, 0] ], direction: null }
     const setPlaceFalse = () => {
         return playerProperties.canPlace = false
 }
     const getPlace = () => playerProperties.canPlace
     const getTurn = () => playerProperties.myTurn
+    const getHit = () => playerProperties.shipSunk
+    const getMoveset = () => playerProperties.moveSet
+    const setSunkFalse = () => {
+        return playerProperties.shipSunk = false
+    }
+    const setSunkTrue = () => {
+        return playerProperties.shipSunk = true
+    }
     const setTurnFalse = () => { 
         return playerProperties.myTurn = false 
     }
@@ -21,6 +30,12 @@ const Player = (name) => {
         return randomNumber
     }
 
+    const makeCalculatedMove = (x, y) => {
+        if ( (x + 1) < 10) {
+            x = x + 1
+        }
+    }
+
     const getRandomNumber = () => {
         let theDirection = Math.round(Math.random())
         return theDirection
@@ -32,7 +47,8 @@ const Player = (name) => {
             enemy.setTurnTrue()
         }
     }
-    return { attackBoard, setTurnFalse, makeRandomMove, getRandomNumber, setPlaceFalse, getPlace, getTurn, setTurnTrue }
+    return { attackBoard, setTurnFalse, makeRandomMove, getRandomNumber, setPlaceFalse, getPlace, getTurn, setTurnTrue, 
+        getHit, getMoveset, setSunkFalse, setSunkTrue }
 }
 
 module.exports = Player
