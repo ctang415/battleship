@@ -43,7 +43,7 @@
 
 .divtwo {
     display: flex;
-    border: solid black;
+    border: solid 1px black;
     justify-content: center;
     cursor: pointer;
     background-color: grey;
