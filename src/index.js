@@ -77,12 +77,14 @@ const gamePlay = (() => {
     let hitX;
     let hitY;
     const button = document.getElementById('button')
+    const text = document.getElementById('text')
     let moveset = [ [0, +1], [0, -1], [+1, 0], [-1, 0] ]
     let hitTarget;
     button.addEventListener('click', function (){
         playerDivs.forEach(div => div.style.pointerEvents = 'none')
         const enemyDivs = document.querySelectorAll('.divenemy')
         button.style.display = 'none'
+        text.style.display = 'none'
         enemyDivs.forEach(div => div.addEventListener('click', function() {
             // grabs player clicked div and disables it
             let currentClick = this.getAttribute('data-id')

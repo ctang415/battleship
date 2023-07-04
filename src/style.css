@@ -12,16 +12,12 @@
     padding: 1vw;
 }
 
-.container::before, .containertwo::before, .container::after, .containertwo::after {
-    padding-bottom: 100%;
-}
-
 .divplayer, .divenemy {
     display: flex;
     border: solid 1px black;
     justify-content: center;
+    padding: 3vh;
     cursor: pointer;
-    padding: 1em;
     background-color: aquamarine;
 }
 
@@ -31,7 +27,7 @@
     justify-content: center;
     border: solid 1px #000000;
     color: black;
-    padding: 0.5em;
+    padding: 21.5%;
     text-align: center;
 }
 
@@ -39,7 +35,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0.5em;
     border: solid 1px black;
     background-color : red;
     color: black;
@@ -50,7 +45,6 @@
     display: flex;
     border: solid black;
     justify-content: center;
-    padding: 1em;
     cursor: pointer;
     background-color: grey;
 }
@@ -85,7 +79,11 @@
 
 .bottom {
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 1em;
 }
 
 .overlay {
@@ -131,16 +129,12 @@
         padding: 1.5vw;
     }
 
-    .container::after, .containertwo::after {
-        padding-bottom: 100%;
-    }
-
     .divplayer, .divenemy {
         display: flex;
         border: solid black;
         justify-content: center;
         cursor: pointer;
-        padding: 0.5em;
+        padding: 0.58em;
         background-color: aquamarine;
     }
     .divtwo {
@@ -166,17 +160,14 @@
     }
     .miss {
         border: solid black;
-        font-size: 1.8vh;
-        line-height: 100%;
         color: black;
+        padding: 0em;
         text-align: center;
     }
     
     .hit {
         border: solid black;
         background-color : red;
-        font-size: 1.8vh;
-        line-height: 100%;
         color: black;
         text-align: center;
     }
