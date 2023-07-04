@@ -1,9 +1,11 @@
 const Gameboard = () => {
     const missedAttacks = []
+    const attacks = []
     const listOfShips = []
     const boardProperties = {shipHit: false, shipCoordinate: null}
     const shipHit = () => boardProperties.shipHit
     const shipCoordinate = () => boardProperties.shipCoordinate
+    const getAttacks = () => attacks
     const getMissingCoordinates = () => missedAttacks.length
     const reportLength = () => listOfShips.length
     const showBoard = (ship, coordinates) => {
@@ -172,7 +174,8 @@ const Gameboard = () => {
         return "not all ships sunk"
         }
     }
-    return { placeShip, showBoard, receiveAttack, reportShips, reportLength, shipHit, shipCoordinate, getMissingCoordinates }
+    return { placeShip, showBoard, receiveAttack, reportShips, reportLength, shipHit, shipCoordinate, getMissingCoordinates,
+    getAttacks }
 }
 
 module.exports = Gameboard
